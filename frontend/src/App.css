@@ -2095,11 +2095,22 @@ body {
   border: 1px solid rgba(255, 152, 0, 0.15);
   border-radius: calc(var(--radius) * 0.8);
   transition: all var(--transition);
+  cursor: pointer;
 }
 
 .deprecated-formula-item:hover {
   background: rgba(255, 255, 255, 0.05);
   border-color: rgba(255, 152, 0, 0.3);
+}
+
+.deprecated-formula-item:focus-visible {
+  outline: 2px solid rgba(255, 152, 0, 0.65);
+  outline-offset: 1px;
+}
+
+.deprecated-formula-item.selected {
+  background: rgba(255, 152, 0, 0.1);
+  border-color: rgba(255, 152, 0, 0.45);
 }
 
 .deprecated-formula-name {
@@ -2128,6 +2139,10 @@ body {
   border-color: #ef5350;
   color: #ef5350;
   transform: scale(1.05);
+}
+
+.doctor-package-info {
+  margin-top: 14px;
 }
 
 .log-output {

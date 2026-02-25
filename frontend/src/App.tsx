@@ -130,6 +130,7 @@ const WailBrewApp = () => {
     const [infoPackage, setInfoPackage] = useState<PackageEntry | null>(null);
     const [doctorLog, setDoctorLog] = useState<string>("");
     const [deprecatedFormulae, setDeprecatedFormulae] = useState<string[]>([]);
+    const [selectedDeprecatedPackage, setSelectedDeprecatedPackage] = useState<PackageEntry | null>(null);
     const [homebrewLog, setHomebrewLog] = useState<string>("");
     const [homebrewVersion, setHomebrewVersion] = useState<string>("");
     const [homebrewUpdateStatus, setHomebrewUpdateStatus] = useState<{ isUpToDate: boolean | null, latestVersion: string | null }>({ isUpToDate: null, latestVersion: null });
@@ -1111,6 +1112,55 @@ const WailBrewApp = () => {
     const handleRepositorySelect = (repo: RepositoryEntry) => {
         setSelectedRepository(repo);
         setSelectedPackage(null);
+    };
+
+    const handleSelectDeprecatedFormula = async (formula: string) => {
+        if (selectedDeprecatedPackage?.name === formula) {
+            setSelectedDeprecatedPackage(null);
+            return;
+        }
+
+        if (packageCache.has(formula)) {
+            setSelectedDeprecatedPackage(packageCache.get(formula)!);
+            return;
+        }
+
+        const knownPackage =
+            packages.find(p => p.name === formula) ||
+            updatablePackages.find(p => p.name === formula) ||
+            leavesPackages.find(p => p.name === formula) ||
+            allPackages.find(p => p.name === formula);
+
+        const basePackage: PackageEntry = knownPackage || {
+            name: formula,
+            installedVersion: "",
+            isInstalled: true,
+            isCask: false,
+        };
+
+        setSelectedDeprecatedPackage(basePackage);
+        setLoadingDetailsFor(formula);
+
+        try {
+            const info = await GetBrewPackageInfoAsJson(formula);
+            const enriched: PackageEntry = {
+                ...basePackage,
+                desc: (info["desc"] as string) || t('common.notAvailable'),
+                homepage: (info["homepage"] as string) || t('common.notAvailable'),
+                dependencies: (info["dependencies"] as string[]) || [],
+                conflicts: (info["conflicts_with"] as string[]) || [],
+                isCask: false,
+            };
+
+            setPackageCache(prev => {
+                const next = new Map(prev);
+                next.set(formula, enriched);
+                return next;
+            });
+            setSelectedDeprecatedPackage(enriched);
+        } finally {
+            setLoadingDetailsFor(null);
+        }
     };
 
     const handleSelectDependency = async (dependencyName: string) => {
@@ -2452,19 +2502,25 @@ const WailBrewApp = () => {
                     <DoctorView
                         doctorLog={doctorLog}
                         deprecatedFormulae={deprecatedFormulae}
+                        selectedDeprecatedPackage={selectedDeprecatedPackage}
+                        loadingDetailsFor={loadingDetailsFor}
                         onClearLog={() => {
                             setDoctorLog("");
                             setDeprecatedFormulae([]);
+                            setSelectedDeprecatedPackage(null);
                         }}
                         onRunDoctor={async () => {
                             setDoctorLog(t('dialogs.runningDoctor'));
                             setDeprecatedFormulae([]);
+                            setSelectedDeprecatedPackage(null);
                             const result = await RunBrewDoctor();
                             setDoctorLog(result);
                             // Parse deprecated formulae from the output
                             const deprecated = await GetDeprecatedFormulae(result);
                             setDeprecatedFormulae(deprecated || []);
                         }}
+                        onSelectDeprecated={handleSelectDeprecatedFormula}
+                        onSelectDependency={handleSelectDependency}
                         onUninstallDeprecated={async (formula: string) => {
                             setSelectedPackage({ name: formula, installedVersion: "", isInstalled: true });
                             setShowConfirm(true);

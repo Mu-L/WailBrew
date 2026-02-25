@@ -1,20 +1,42 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { CircleX } from "lucide-react";
+import PackageInfo from "./PackageInfo";
+
+interface PackageEntry {
+    name: string;
+    installedVersion: string;
+    latestVersion?: string;
+    size?: string;
+    desc?: string;
+    homepage?: string;
+    dependencies?: string[];
+    conflicts?: string[];
+    isInstalled?: boolean;
+    isCask?: boolean;
+}
 
 interface DoctorViewProps {
     doctorLog: string;
     deprecatedFormulae: string[];
+    selectedDeprecatedPackage: PackageEntry | null;
+    loadingDetailsFor: string | null;
     onClearLog: () => void;
     onRunDoctor: () => void;
+    onSelectDeprecated: (formula: string) => void;
+    onSelectDependency: (dependencyName: string) => void;
     onUninstallDeprecated: (formula: string) => void;
 }
 
 const DoctorView: React.FC<DoctorViewProps> = ({ 
     doctorLog, 
     deprecatedFormulae, 
+    selectedDeprecatedPackage,
+    loadingDetailsFor,
     onClearLog, 
     onRunDoctor,
+    onSelectDeprecated,
+    onSelectDependency,
     onUninstallDeprecated 
 }) => {
     const { t } = useTranslation();
@@ -42,11 +64,26 @@ const DoctorView: React.FC<DoctorViewProps> = ({
                     </div>
                     <div className="deprecated-formulae-list">
                         {(deprecatedFormulae || []).map((formula) => (
-                            <div key={formula} className="deprecated-formula-item">
+                            <div
+                                key={formula}
+                                className={`deprecated-formula-item ${selectedDeprecatedPackage?.name === formula ? "selected" : ""}`}
+                                onClick={() => onSelectDeprecated(formula)}
+                                role="button"
+                                tabIndex={0}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter" || e.key === " ") {
+                                        e.preventDefault();
+                                        onSelectDeprecated(formula);
+                                    }
+                                }}
+                            >
                                 <span className="deprecated-formula-name">{formula}</span>
                                 <button
                                     className="deprecated-uninstall-button"
-                                    onClick={() => onUninstallDeprecated(formula)}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        onUninstallDeprecated(formula);
+                                    }}
                                     title={t('buttons.uninstallDeprecated', { name: formula })}
                                 >
                                     <CircleX size={18} />
@@ -55,6 +92,16 @@ const DoctorView: React.FC<DoctorViewProps> = ({
                             </div>
                         ))}
                     </div>
+                    {selectedDeprecatedPackage && (
+                        <div className="doctor-package-info">
+                            <PackageInfo
+                                packageEntry={selectedDeprecatedPackage}
+                                loadingDetailsFor={loadingDetailsFor}
+                                view="installed"
+                                onSelectDependency={onSelectDependency}
+                            />
+                        </div>
+                    )}
                 </div>
             )}
             <pre className="doctor-log">
