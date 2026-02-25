@@ -132,6 +132,7 @@ const WailBrewApp = () => {
     const [doctorLog, setDoctorLog] = useState<string>("");
     const [deprecatedFormulae, setDeprecatedFormulae] = useState<string[]>([]);
     const [selectedDeprecatedPackage, setSelectedDeprecatedPackage] = useState<PackageEntry | null>(null);
+    const [updatableError, setUpdatableError] = useState<string>("");
     const [homebrewLog, setHomebrewLog] = useState<string>("");
     const [homebrewVersion, setHomebrewVersion] = useState<string>("");
     const [homebrewUpdateStatus, setHomebrewUpdateStatus] = useState<{ isUpToDate: boolean | null, latestVersion: string | null }>({ isUpToDate: null, latestVersion: null });
@@ -225,9 +226,10 @@ const WailBrewApp = () => {
                 if (safeInstalledCasks.length === 1 && safeInstalledCasks[0][0] === "Error") {
                     throw new Error(`${t('errors.failedInstalledCasks')}: ${safeInstalledCasks[0][1]}`);
                 }
-                if (safeUpdatable.length === 1 && safeUpdatable[0][0] === "Error") {
-                    throw new Error(`${t('errors.failedUpdatablePackages')}: ${safeUpdatable[0][1]}`);
-                }
+                const updatableErrorMessage =
+                    safeUpdatable.length === 1 && safeUpdatable[0][0] === "Error"
+                        ? `${t('errors.failedUpdatablePackages')}: ${safeUpdatable[0][1]}`
+                        : "";
                 if (safeLeaves.length === 1 && safeLeaves[0]?.startsWith("Error: ")) {
                     throw new Error(`${t('errors.failedLeaves')}: ${safeLeaves[0]}`);
                 }
@@ -247,15 +249,17 @@ const WailBrewApp = () => {
                     size,
                     isInstalled: true,
                 }));
-                const updatableFormatted = safeUpdatable.map(([name, installedVersion, latestVersion, size, warning, type]) => ({
-                    name,
-                    installedVersion,
-                    latestVersion,
-                    size,
-                    isInstalled: true,
-                    warning: warning || undefined,
-                    isCask: type === "cask",
-                }));
+                const updatableFormatted = updatableErrorMessage
+                    ? []
+                    : safeUpdatable.map(([name, installedVersion, latestVersion, size, warning, type]) => ({
+                        name,
+                        installedVersion,
+                        latestVersion,
+                        size,
+                        isInstalled: true,
+                        warning: warning || undefined,
+                        isCask: type === "cask",
+                    }));
                 // Format leaves packages with their versions and sizes from installed packages
                 const installedMap = new Map(installedFormatted.map(pkg => [pkg.name, { installedVersion: pkg.installedVersion, size: pkg.size }]));
                 const leavesFormatted = safeLeaves.map((name) => {
@@ -278,6 +282,7 @@ const WailBrewApp = () => {
                 setPackages(installedFormatted);
                 setCasks(casksFormatted);
                 setUpdatablePackages(updatableFormatted);
+                setUpdatableError(updatableErrorMessage);
                 setLeavesPackages(leavesFormatted);
                 setRepositories(reposFormatted);
                 // Note: allPackages are loaded lazily when user switches to "all" view
@@ -359,7 +364,7 @@ const WailBrewApp = () => {
                 setLeavesPackages([]);
                 setRepositories([]);
 
-                let errorMessage = t('errors.loadingFormulas') + (err.message || err);
+                let errorMessage = `${t('errors.loadingFormulas')}: ${err.message || err}`;
 
                 // Provide helpful error message for common issues on fresh installations
                 if (errorMessage.includes("validation failed") || errorMessage.includes("not found")) {
@@ -500,6 +505,7 @@ const WailBrewApp = () => {
             // Check for errors
             if (updatable.length === 1 && updatable[0][0] === "Error") {
                 console.error("Background check failed:", updatable[0][1]);
+                setUpdatableError(`${t('errors.failedUpdatablePackages')}: ${updatable[0][1]}`);
                 return;
             }
 
@@ -521,6 +527,7 @@ const WailBrewApp = () => {
                     isCask: type === "cask",
                 }));
                 setUpdatablePackages(formatted);
+                setUpdatableError("");
 
                 // Show toast notification
                 toast(
@@ -1968,6 +1975,7 @@ const WailBrewApp = () => {
     const handleRefreshPackages = async () => {
         setLoading(true);
         setError("");
+        setUpdatableError("");
 
         // Clear existing data to show clean loading state
         setPackages([]);
@@ -2065,6 +2073,7 @@ const WailBrewApp = () => {
 
             if (safeUpdatable.length === 1 && safeUpdatable[0][0] === "Error") {
                 setUpdatablePackages([]);
+                setUpdatableError(`${t('errors.failedUpdatablePackages')}: ${safeUpdatable[0][1]}`);
             } else {
                 const formatted = safeUpdatable.map(([name, installedVersion, latestVersion, size, warning, type]) => ({
                     name,
@@ -2076,6 +2085,7 @@ const WailBrewApp = () => {
                     isCask: type === "cask",
                 }));
                 setUpdatablePackages(formatted);
+                setUpdatableError("");
             }
 
             // Note: allPackages are loaded lazily when user switches to "all" view
@@ -2225,7 +2235,7 @@ const WailBrewApp = () => {
                             onSearchChange={setSearchQuery}
                             onClearSearch={() => setSearchQuery("")}
                         />
-                        {error && <div className="result error">{error}</div>}
+                        {updatableError && <div className="result error">{updatableError}</div>}
                         <PackageTable
                             ref={view === "casks" ? packageTableRef : null}
                             packages={filteredPackages}
