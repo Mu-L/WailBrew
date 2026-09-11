@@ -26,6 +26,14 @@ export function ClearConfigFile() {
   return window['go']['main']['App']['ClearConfigFile']();
 }
 
+export function CreateSnapshot(arg1) {
+  return window['go']['main']['App']['CreateSnapshot'](arg1);
+}
+
+export function DeleteSnapshot(arg1) {
+  return window['go']['main']['App']['DeleteSnapshot'](arg1);
+}
+
 export function DownloadAndInstallUpdate(arg1) {
   return window['go']['main']['App']['DownloadAndInstallUpdate'](arg1);
 }
@@ -238,6 +246,10 @@ export function InstallBrewPackage(arg1, arg2) {
   return window['go']['main']['App']['InstallBrewPackage'](arg1, arg2);
 }
 
+export function ListSnapshots() {
+  return window['go']['main']['App']['ListSnapshots']();
+}
+
 export function OpenConfigFile() {
   return window['go']['main']['App']['OpenConfigFile']();
 }
@@ -268,6 +280,14 @@ export function RestartApp() {
 
 export function RestartBrewService(arg1) {
   return window['go']['main']['App']['RestartBrewService'](arg1);
+}
+
+export function RestoreSnapshot(arg1, arg2) {
+  return window['go']['main']['App']['RestoreSnapshot'](arg1, arg2);
+}
+
+export function RevealSnapshot(arg1) {
+  return window['go']['main']['App']['RevealSnapshot'](arg1);
 }
 
 export function RunBrewCleanup() {

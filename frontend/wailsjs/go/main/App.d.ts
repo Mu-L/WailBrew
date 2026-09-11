@@ -16,6 +16,10 @@ export function ClearBrewCache():Promise<void>;
 
 export function ClearConfigFile():Promise<void>;
 
+export function CreateSnapshot(arg1:string):Promise<brew.SnapshotEntry>;
+
+export function DeleteSnapshot(arg1:string):Promise<void>;
+
 export function DownloadAndInstallUpdate(arg1:string):Promise<void>;
 
 export function ExecuteBrewDoctorCommand(arg1:string):Promise<string>;
@@ -122,6 +126,8 @@ export function ImportBrewfile(arg1:string,arg2:boolean):Promise<void>;
 
 export function InstallBrewPackage(arg1:string,arg2:boolean):Promise<string>;
 
+export function ListSnapshots():Promise<Array<brew.SnapshotEntry>>;
+
 export function OpenConfigFile():Promise<void>;
 
 export function OpenURL(arg1:string):Promise<void>;
@@ -137,6 +143,10 @@ export function RemoveBrewPackage(arg1:string,arg2:boolean):Promise<string>;
 export function RestartApp():Promise<void>;
 
 export function RestartBrewService(arg1:string):Promise<string>;
+
+export function RestoreSnapshot(arg1:string,arg2:boolean):Promise<void>;
+
+export function RevealSnapshot(arg1:string):Promise<void>;
 
 export function RunBrewCleanup():Promise<string>;
 

@@ -26,7 +26,8 @@
     "sponsor": "Patrocinar",
     "services": "Serviços",
     "collapse": "Recolher barra lateral",
-    "expand": "Expandir barra lateral"
+    "expand": "Expandir barra lateral",
+    "snapshots": "Snapshots"
   },
   "headers": {
     "installedFormulas": "Fórmulas Instaladas",
@@ -40,7 +41,8 @@
     "homebrewDoctor": "Diagnóstico do Homebrew",
     "homebrewCleanup": "Limpeza do Homebrew",
     "deprecatedFormulae": "Fórmulas Descontinuadas",
-    "services": "Serviços"
+    "services": "Serviços",
+    "snapshots": "Snapshots"
   },
   "search": {
     "placeholder": "Buscar...",
@@ -67,7 +69,8 @@
       "repositories": "Repositórios",
       "homebrew": "Homebrew",
       "doctor": "Diagnóstico",
-      "cleanup": "Limpeza"
+      "cleanup": "Limpeza",
+      "snapshots": "Snapshots"
     },
     "table": {
       "title": "Tabela",
@@ -128,7 +131,8 @@
     "toggleFavoritesOnly": "Mostrar apenas favoritos",
     "togglePinnedOnly": "Mostrar apenas fixados",
     "pin": "Fixar \"{{name}}\" (bloquear atualizações)",
-    "unpin": "Desafixar \"{{name}}\" (permitir atualizações)"
+    "unpin": "Desafixar \"{{name}}\" (permitir atualizações)",
+    "newSnapshot": "Novo Snapshot"
   },
   "filters": {
     "onRequest": "Por solicitação ({{count}})",
@@ -187,7 +191,8 @@
     "homebrew": "Gerencie o Homebrew. Verifique a versão instalada e atualize o core do Homebrew quando uma nova versão estiver disponível.",
     "doctor": "O Diagnóstico é um recurso do Homebrew que pode detectar as causas mais comuns de erros.",
     "cleanup": "A Limpeza remove downloads desatualizados e arquivos em cache para liberar espaço em disco.",
-    "services": "Serviços são processos em segundo plano (via launchd) gerenciados pelo Homebrew. Inicie, pare, reinicie ou execute o serviço de uma fórmula."
+    "services": "Serviços são processos em segundo plano (via launchd) gerenciados pelo Homebrew. Inicie, pare, reinicie ou execute o serviço de uma fórmula.",
+    "snapshots": "Snapshots são Brewfiles salvos que você pode restaurar depois, neste Mac ou em outro, para reinstalar as mesmas fórmulas, casks e taps."
   },
   "homebrew": {
     "currentVersion": "Versão Atual",
@@ -248,7 +253,12 @@
     "noDoctorOutput": "Nenhuma saída ainda. Clique em \"Executar diagnóstico\".",
     "noCleanupOutput": "Nenhuma saída ainda. Clique em \"Executar limpeza\".",
     "serviceActionLogs": "Serviço: {{name}}",
-    "serviceInfo": "Informações do serviço {{name}}"
+    "serviceInfo": "Informações do serviço {{name}}",
+    "confirmRestoreSnapshot": "Restaurar o snapshot \"{{name}}\"? Isso instala todas as fórmulas, casks e taps listados nele.",
+    "confirmDeleteSnapshot": "Excluir o snapshot \"{{name}}\"? Esta ação não pode ser desfeita.",
+    "newSnapshotTitle": "Novo Snapshot",
+    "newSnapshotPlaceholder": "Rótulo (opcional), ex. antes-do-upgrade-macOS",
+    "newSnapshotHint": "Salva as fórmulas, casks e taps atualmente instalados em um Brewfile com data e hora que você pode restaurar depois."
   },
   "errors": {
     "loadingFormulas": "❌ Erro ao carregar fórmulas!",
@@ -316,7 +326,8 @@
       "cleanup": "Limpeza",
       "settings": "Configurações",
       "shortcuts": "Atalhos de Teclado...",
-      "services": "Serviços"
+      "services": "Serviços",
+      "snapshots": "Snapshots"
     },
     "tools": {
       "title": "Ferramentas",
@@ -364,7 +375,9 @@
     "loadingServices": "Carregando serviços…",
     "noServices": "Nenhum serviço do Homebrew encontrado.",
     "service": "serviço",
-    "services": "serviços"
+    "services": "serviços",
+    "loadingSnapshots": "Carregando snapshots…",
+    "noSnapshots": "Ainda não há snapshots. Crie um para fazer backup das suas fórmulas, casks e taps instalados."
   },
   "repository": {
     "noSelection": "Nenhum repositório selecionado",
@@ -709,5 +722,31 @@
     "hints": {
       "bootstrapFailed": "💡 O launchd não conseguiu iniciar este serviço. Ele pode já estar carregado ou precisar de root para vincular portas privilegiadas (por exemplo, 80/443). Tente Parar e depois Iniciar novamente, ou execute-o como serviço root no Terminal: sudo brew services start {{name}}"
     }
+  },
+  "snapshots": {
+    "label": "Rótulo",
+    "created": "Criado em",
+    "size": "Tamanho",
+    "untitled": "Sem título",
+    "snapshot": "snapshot",
+    "snapshots": "snapshots",
+    "creating": "Criando…",
+    "removeExtra": "Também remover pacotes que não estão neste snapshot",
+    "removeExtraHint": "Desinstala qualquer fórmula, cask ou tap instalado que não esteja listado no snapshot, fazendo este Mac corresponder exatamente a ele. Deixe desmarcado para instalar apenas o que estiver faltando.",
+    "loadFailed": "Falha ao carregar snapshots: {{error}}",
+    "createSuccess": "Snapshot criado",
+    "createFailed": "Falha ao criar snapshot: {{error}}",
+    "restoreSuccess": "Snapshot \"{{name}}\" restaurado",
+    "restoreFailed": "Falha ao restaurar snapshot: {{error}}",
+    "deleteSuccess": "Snapshot \"{{name}}\" excluído",
+    "deleteFailed": "Falha ao excluir snapshot: {{error}}",
+    "buttons": {
+      "restore": "Restaurar \"{{name}}\"",
+      "delete": "Excluir \"{{name}}\"",
+      "restoreConfirm": "Sim, restaurar",
+      "deleteConfirm": "Sim, excluir",
+      "reveal": "Mostrar \"{{name}}\" no Finder"
+    },
+    "revealFailed": "Falha ao mostrar o snapshot no Finder: {{error}}"
   }
 }

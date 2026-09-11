@@ -26,7 +26,8 @@
     "sponsor": "Sponsoriser",
     "services": "Services",
     "collapse": "Réduire la barre latérale",
-    "expand": "Développer la barre latérale"
+    "expand": "Développer la barre latérale",
+    "snapshots": "Instantanés"
   },
   "headers": {
     "installedFormulas": "Formules Installées",
@@ -40,7 +41,8 @@
     "homebrewDoctor": "Diagnostic Homebrew",
     "homebrewCleanup": "Nettoyage Homebrew",
     "deprecatedFormulae": "Formules obsolètes",
-    "services": "Services"
+    "services": "Services",
+    "snapshots": "Instantanés"
   },
   "search": {
     "placeholder": "Rechercher...",
@@ -67,7 +69,8 @@
       "repositories": "Dépôts",
       "homebrew": "Homebrew",
       "doctor": "Diagnostic",
-      "cleanup": "Nettoyage"
+      "cleanup": "Nettoyage",
+      "snapshots": "Instantanés"
     },
     "table": {
       "title": "Tableau",
@@ -128,7 +131,8 @@
     "toggleFavoritesOnly": "Afficher uniquement les favoris",
     "togglePinnedOnly": "Afficher uniquement les épinglés",
     "pin": "Épingler \"{{name}}\" (bloquer les mises à jour)",
-    "unpin": "Désépingler \"{{name}}\" (autoriser les mises à jour)"
+    "unpin": "Désépingler \"{{name}}\" (autoriser les mises à jour)",
+    "newSnapshot": "Nouvel instantané"
   },
   "filters": {
     "onRequest": "À la demande ({{count}})",
@@ -187,7 +191,8 @@
     "homebrew": "Gérez et mettez à jour Homebrew lui-même. Vérifiez la version installée et mettez à jour le noyau Homebrew quand une nouvelle version est disponible.",
     "doctor": "Le diagnostic est une fonctionnalité Homebrew qui peut détecter les causes les plus courantes d'erreurs.",
     "cleanup": "Le nettoyage supprime les téléchargements obsolètes et les fichiers en cache pour libérer de l'espace disque.",
-    "services": "Les services sont des processus en arrière-plan (via launchd) gérés par Homebrew. Démarrez, arrêtez, redémarrez ou exécutez le service d'une formule."
+    "services": "Les services sont des processus en arrière-plan (via launchd) gérés par Homebrew. Démarrez, arrêtez, redémarrez ou exécutez le service d'une formule.",
+    "snapshots": "Les instantanés sont des Brewfiles enregistrés que vous pouvez restaurer plus tard, sur ce Mac ou un autre, pour réinstaller les mêmes formules, casks et taps."
   },
   "homebrew": {
     "currentVersion": "Version actuelle",
@@ -248,7 +253,12 @@
     "noDoctorOutput": "Aucune sortie pour le moment. Cliquez sur \"Lancer le diagnostic\".",
     "noCleanupOutput": "Aucune sortie pour le moment. Cliquez sur \"Lancer le nettoyage\".",
     "serviceActionLogs": "Service : {{name}}",
-    "serviceInfo": "Infos du service {{name}}"
+    "serviceInfo": "Infos du service {{name}}",
+    "confirmRestoreSnapshot": "Restaurer l'instantané « {{name}} » ? Cela installe toutes les formules, casks et taps qu'il contient.",
+    "confirmDeleteSnapshot": "Supprimer l'instantané « {{name}} » ? Cette action est irréversible.",
+    "newSnapshotTitle": "Nouvel instantané",
+    "newSnapshotPlaceholder": "Libellé (facultatif), ex. avant-mise-a-jour-macOS",
+    "newSnapshotHint": "Enregistre les formules, casks et taps actuellement installés dans un Brewfile horodaté que vous pourrez restaurer plus tard."
   },
   "errors": {
     "loadingFormulas": "❌ Erreur lors du chargement des formules !",
@@ -316,7 +326,8 @@
       "cleanup": "Nettoyage",
       "settings": "Paramètres",
       "shortcuts": "Raccourcis clavier...",
-      "services": "Services"
+      "services": "Services",
+      "snapshots": "Instantanés"
     },
     "tools": {
       "title": "Outils",
@@ -364,7 +375,9 @@
     "loadingServices": "Chargement des services…",
     "noServices": "Aucun service Homebrew trouvé.",
     "service": "service",
-    "services": "services"
+    "services": "services",
+    "loadingSnapshots": "Chargement des instantanés…",
+    "noSnapshots": "Aucun instantané pour le moment. Créez-en un pour sauvegarder vos formules, casks et taps installés."
   },
   "repository": {
     "noSelection": "Aucun dépôt sélectionné",
@@ -709,5 +722,31 @@
     "hints": {
       "bootstrapFailed": "💡 launchd n'a pas pu démarrer ce service. Il est peut-être déjà chargé, ou il nécessite les droits root pour lier des ports privilégiés (par ex. 80/443). Essayez « Arrêter » puis « Démarrer » à nouveau, ou exécutez-le en tant que service root dans le Terminal : sudo brew services start {{name}}"
     }
+  },
+  "snapshots": {
+    "label": "Libellé",
+    "created": "Créé le",
+    "size": "Taille",
+    "untitled": "Sans titre",
+    "snapshot": "instantané",
+    "snapshots": "instantanés",
+    "creating": "Création…",
+    "removeExtra": "Supprimer aussi les paquets absents de cet instantané",
+    "removeExtraHint": "Désinstalle toute formule, cask ou tap installé qui ne figure pas dans l'instantané, afin que ce Mac corresponde exactement à celui-ci. Laissez décoché pour seulement installer ce qui manque.",
+    "loadFailed": "Échec du chargement des instantanés : {{error}}",
+    "createSuccess": "Instantané créé",
+    "createFailed": "Échec de la création de l'instantané : {{error}}",
+    "restoreSuccess": "Instantané « {{name}} » restauré",
+    "restoreFailed": "Échec de la restauration de l'instantané : {{error}}",
+    "deleteSuccess": "Instantané « {{name}} » supprimé",
+    "deleteFailed": "Échec de la suppression de l'instantané : {{error}}",
+    "buttons": {
+      "restore": "Restaurer « {{name}} »",
+      "delete": "Supprimer « {{name}} »",
+      "restoreConfirm": "Oui, restaurer",
+      "deleteConfirm": "Oui, supprimer",
+      "reveal": "Afficher « {{name}} » dans le Finder"
+    },
+    "revealFailed": "Impossible d'afficher l'instantané dans le Finder : {{error}}"
   }
 }

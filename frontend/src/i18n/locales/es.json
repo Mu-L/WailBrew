@@ -26,7 +26,8 @@
     "sponsor": "Patrocinador",
     "services": "Servicios",
     "collapse": "Contraer barra lateral",
-    "expand": "Expandir barra lateral"
+    "expand": "Expandir barra lateral",
+    "snapshots": "Instantáneas"
   },
   "headers": {
     "installedFormulas": "Programas CLI instalados",
@@ -40,7 +41,8 @@
     "homebrewDoctor": "Auditar",
     "homebrewCleanup": "Limpiar",
     "deprecatedFormulae": "Programas CLI en desuso",
-    "services": "Servicios"
+    "services": "Servicios",
+    "snapshots": "Instantáneas"
   },
   "search": {
     "placeholder": "Buscar...",
@@ -67,7 +69,8 @@
       "repositories": "Repositorios",
       "homebrew": "Homebrew",
       "doctor": "Auditar",
-      "cleanup": "Limpiar"
+      "cleanup": "Limpiar",
+      "snapshots": "Instantáneas"
     },
     "table": {
       "title": "Tabla",
@@ -128,7 +131,8 @@
     "toggleFavoritesOnly": "Mostrar solo favoritos",
     "togglePinnedOnly": "Mostrar solo anclados",
     "pin": "Anclar \"{{name}}\" (bloquear actualizaciones)",
-    "unpin": "Desanclar \"{{name}}\" (permitir actualizaciones)"
+    "unpin": "Desanclar \"{{name}}\" (permitir actualizaciones)",
+    "newSnapshot": "Nueva instantánea"
   },
   "filters": {
     "onRequest": "Por petición ({{count}})",
@@ -187,7 +191,8 @@
     "homebrew": "Gestionar y actualizar Homebrew. Verifique la versión instalada y actualice Homebrew core cuando una nueva versión esté disponible.",
     "doctor": "Doctor es una característica de Homebrew que puede detectar las causas más comunes de errores.",
     "cleanup": "Limpieza remueve descargas y archivos en caché para liberar espacio en disco.",
-    "services": "Los servicios son procesos en segundo plano (mediante launchd) gestionados por Homebrew. Inicia, detén, reinicia o ejecuta el servicio de una fórmula."
+    "services": "Los servicios son procesos en segundo plano (mediante launchd) gestionados por Homebrew. Inicia, detén, reinicia o ejecuta el servicio de una fórmula.",
+    "snapshots": "Las instantáneas son Brewfiles guardados que puedes restaurar más tarde, en este Mac o en otro, para reinstalar las mismas fórmulas, casks y taps."
   },
   "homebrew": {
     "currentVersion": "Version Actual",
@@ -248,7 +253,12 @@
     "noDoctorOutput": "No hay registro aun. Hacer clic \"Run doctor\".",
     "noCleanupOutput": "No hay registro aun. Hacer clic \"Run cleanup\".",
     "serviceActionLogs": "Servicio: {{name}}",
-    "serviceInfo": "Información del servicio {{name}}"
+    "serviceInfo": "Información del servicio {{name}}",
+    "confirmRestoreSnapshot": "¿Restaurar la instantánea \"{{name}}\"? Esto instala todas las fórmulas, casks y taps que contiene.",
+    "confirmDeleteSnapshot": "¿Eliminar la instantánea \"{{name}}\"? Esta acción no se puede deshacer.",
+    "newSnapshotTitle": "Nueva instantánea",
+    "newSnapshotPlaceholder": "Etiqueta (opcional), p. ej. antes-de-actualizar-macOS",
+    "newSnapshotHint": "Guarda las fórmulas, casks y taps instalados actualmente en un Brewfile con marca de tiempo que podrás restaurar más adelante."
   },
   "errors": {
     "loadingFormulas": "❌ Error al cargar programas CLI!",
@@ -316,7 +326,8 @@
       "cleanup": "Limpieza",
       "settings": "Configuración",
       "shortcuts": "Atajos de teclado...",
-      "services": "Servicios"
+      "services": "Servicios",
+      "snapshots": "Instantáneas"
     },
     "tools": {
       "title": "Herramientas",
@@ -364,7 +375,9 @@
     "loadingServices": "Cargando servicios…",
     "noServices": "No se encontraron servicios de Homebrew.",
     "service": "servicio",
-    "services": "servicios"
+    "services": "servicios",
+    "loadingSnapshots": "Cargando instantáneas…",
+    "noSnapshots": "Aún no hay instantáneas. Crea una para respaldar tus fórmulas, casks y taps instalados."
   },
   "repository": {
     "noSelection": "No se seleccionó repositorio",
@@ -709,5 +722,31 @@
     "hints": {
       "bootstrapFailed": "💡 launchd no pudo iniciar este servicio. Puede que ya esté cargado o que necesite root para enlazar puertos privilegiados (p. ej. 80/443). Prueba a Detener y luego Iniciar de nuevo, o ejecútalo como servicio root en la Terminal: sudo brew services start {{name}}"
     }
+  },
+  "snapshots": {
+    "label": "Etiqueta",
+    "created": "Creada",
+    "size": "Tamaño",
+    "untitled": "Sin título",
+    "snapshot": "instantánea",
+    "snapshots": "instantáneas",
+    "creating": "Creando…",
+    "removeExtra": "Eliminar también los paquetes que no estén en esta instantánea",
+    "removeExtraHint": "Desinstala cualquier fórmula, cask o tap instalado que no figure en la instantánea, haciendo que este Mac coincida exactamente con ella. Déjalo desmarcado para instalar solo lo que falte.",
+    "loadFailed": "No se pudieron cargar las instantáneas: {{error}}",
+    "createSuccess": "Instantánea creada",
+    "createFailed": "No se pudo crear la instantánea: {{error}}",
+    "restoreSuccess": "Instantánea \"{{name}}\" restaurada",
+    "restoreFailed": "No se pudo restaurar la instantánea: {{error}}",
+    "deleteSuccess": "Instantánea \"{{name}}\" eliminada",
+    "deleteFailed": "No se pudo eliminar la instantánea: {{error}}",
+    "buttons": {
+      "restore": "Restaurar \"{{name}}\"",
+      "delete": "Eliminar \"{{name}}\"",
+      "restoreConfirm": "Sí, restaurar",
+      "deleteConfirm": "Sí, eliminar",
+      "reveal": "Mostrar \"{{name}}\" en Finder"
+    },
+    "revealFailed": "No se pudo mostrar la instantánea en Finder: {{error}}"
   }
 }

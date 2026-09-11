@@ -26,6 +26,13 @@ export interface RepositoryEntry {
     trusted?: boolean;
 }
 
+export interface SnapshotEntry {
+    fileName: string;
+    label: string;
+    createdAt: string; // RFC3339
+    size: number;
+}
+
 export type View =
     | "installed"
     | "casks"
@@ -38,4 +45,5 @@ export type View =
     | "homebrew"
     | "doctor"
     | "cleanup"
+    | "snapshots"
     | "settings";

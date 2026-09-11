@@ -26,7 +26,8 @@
     "sponsor": "赞助",
     "services": "服务",
     "collapse": "收起侧边栏",
-    "expand": "展开侧边栏"
+    "expand": "展开侧边栏",
+    "snapshots": "快照"
   },
   "headers": {
     "installedFormulas": "已安装的 Formulae",
@@ -40,7 +41,8 @@
     "homebrewDoctor": "Homebrew Doctor",
     "homebrewCleanup": "Homebrew Cleanup",
     "deprecatedFormulae": "已弃用的包",
-    "services": "服务"
+    "services": "服务",
+    "snapshots": "快照"
   },
   "search": {
     "placeholder": "搜索...",
@@ -67,7 +69,8 @@
       "repositories": "仓库",
       "homebrew": "Homebrew",
       "doctor": "Doctor",
-      "cleanup": "清理"
+      "cleanup": "清理",
+      "snapshots": "快照"
     },
     "table": {
       "title": "表格",
@@ -128,7 +131,8 @@
     "toggleFavoritesOnly": "仅显示收藏",
     "togglePinnedOnly": "仅显示已固定",
     "pin": "固定 \"{{name}}\"（阻止更新）",
-    "unpin": "取消固定 \"{{name}}\"（允许更新）"
+    "unpin": "取消固定 \"{{name}}\"（允许更新）",
+    "newSnapshot": "新建快照"
   },
   "filters": {
     "onRequest": "按需安装 ({{count}})",
@@ -187,7 +191,8 @@
     "homebrew": "管理和更新 Homebrew 本身。检查已安装的版本，并在有新版本可用时更新 Homebrew 核心。",
     "doctor": "Doctor 是 Homebrew 的一项内置功能，可以检测最常见的错误原因。",
     "cleanup": "Cleanup 会删除已下载和缓存的文件以释放磁盘空间。",
-    "services": "服务是由 Homebrew 管理的后台进程（通过 launchd）。可以启动、停止、重启或运行某个 formula 的服务。"
+    "services": "服务是由 Homebrew 管理的后台进程（通过 launchd）。可以启动、停止、重启或运行某个 formula 的服务。",
+    "snapshots": "快照是已保存的 Brewfile，可在此 Mac 或其他 Mac 上稍后恢复，以重新安装相同的 formula、cask 和 tap。"
   },
   "homebrew": {
     "currentVersion": "当前版本",
@@ -248,7 +253,12 @@
     "noDoctorOutput": "暂无输出。请点击 \"执行 doctor\"。",
     "noCleanupOutput": "暂无输出。请点击 \"执行 cleanup\"。",
     "serviceActionLogs": "服务：{{name}}",
-    "serviceInfo": "{{name}} 的服务信息"
+    "serviceInfo": "{{name}} 的服务信息",
+    "confirmRestoreSnapshot": "恢复快照 “{{name}}”？这将安装其中列出的所有 formula、cask 和 tap。",
+    "confirmDeleteSnapshot": "删除快照 “{{name}}”？此操作无法撤销。",
+    "newSnapshotTitle": "新建快照",
+    "newSnapshotPlaceholder": "标签（可选），例如：macOS-升级前",
+    "newSnapshotHint": "将当前安装的 formula、cask 和 tap 保存到带时间戳的 Brewfile 中，以便稍后恢复。"
   },
   "errors": {
     "loadingFormulas": "❌ 加载 Formulae 失败！",
@@ -316,7 +326,8 @@
       "cleanup": "Cleanup",
       "settings": "软件设置",
       "shortcuts": "键盘快捷键...",
-      "services": "服务"
+      "services": "服务",
+      "snapshots": "快照"
     },
     "tools": {
       "title": "工具",
@@ -364,7 +375,9 @@
     "loadingServices": "正在加载服务…",
     "noServices": "未找到 Homebrew 服务。",
     "service": "个服务",
-    "services": "个服务"
+    "services": "个服务",
+    "loadingSnapshots": "正在加载快照…",
+    "noSnapshots": "还没有快照。创建一个以备份已安装的 formula、cask 和 tap。"
   },
   "repository": {
     "noSelection": "未选择软件源",
@@ -709,5 +722,31 @@
     "hints": {
       "bootstrapFailed": "💡 launchd 无法启动此服务。它可能已加载，或需要 root 权限来绑定特权端口（例如 80/443）。请尝试先停止再启动，或在终端中以 root 服务运行：sudo brew services start {{name}}"
     }
+  },
+  "snapshots": {
+    "label": "标签",
+    "created": "创建时间",
+    "size": "大小",
+    "untitled": "无标题",
+    "snapshot": "个快照",
+    "snapshots": "个快照",
+    "creating": "正在创建…",
+    "removeExtra": "同时移除此快照中没有的软件包",
+    "removeExtraHint": "卸载所有已安装但未在快照中列出的 formula、cask 或 tap，使此 Mac 与快照完全一致。取消勾选则仅安装缺少的部分。",
+    "loadFailed": "加载快照失败：{{error}}",
+    "createSuccess": "快照已创建",
+    "createFailed": "创建快照失败：{{error}}",
+    "restoreSuccess": "已恢复快照 “{{name}}”",
+    "restoreFailed": "恢复快照失败：{{error}}",
+    "deleteSuccess": "已删除快照 “{{name}}”",
+    "deleteFailed": "删除快照失败：{{error}}",
+    "buttons": {
+      "restore": "恢复 “{{name}}”",
+      "delete": "删除 “{{name}}”",
+      "restoreConfirm": "是，恢复",
+      "deleteConfirm": "是，删除",
+      "reveal": "在 Finder 中显示 “{{name}}”"
+    },
+    "revealFailed": "在 Finder 中显示快照失败：{{error}}"
   }
 }

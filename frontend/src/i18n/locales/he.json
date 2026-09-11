@@ -26,7 +26,8 @@
     "sponsor": "תמיכה",
     "services": "שירותים",
     "collapse": "כווץ סרגל צד",
-    "expand": "הרחב סרגל צד"
+    "expand": "הרחב סרגל צד",
+    "snapshots": "תמונות מצב"
   },
   "headers": {
     "installedFormulas": "נוסחאות מותקנות",
@@ -40,7 +41,8 @@
     "homebrewDoctor": "Homebrew דוקטור",
     "homebrewCleanup": "Homebrew ניקוי",
     "deprecatedFormulae": "נוסחאות שהוצאו משימוש",
-    "services": "שירותים"
+    "services": "שירותים",
+    "snapshots": "תמונות מצב"
   },
   "search": {
     "placeholder": "חיפוש...",
@@ -67,7 +69,8 @@
       "repositories": "מאגרים",
       "homebrew": "Homebrew",
       "doctor": "דוקטור",
-      "cleanup": "ניקוי"
+      "cleanup": "ניקוי",
+      "snapshots": "תמונות מצב"
     },
     "table": {
       "title": "טבלה",
@@ -128,7 +131,8 @@
     "toggleFavoritesOnly": "הצג מועדפים בלבד",
     "togglePinnedOnly": "הצג נעוצים בלבד",
     "pin": "נעץ את \"{{name}}\" (חסימת עדכונים)",
-    "unpin": "בטל נעיצה של \"{{name}}\" (אפשור עדכונים)"
+    "unpin": "בטל נעיצה של \"{{name}}\" (אפשור עדכונים)",
+    "newSnapshot": "תמונת מצב חדשה"
   },
   "filters": {
     "onRequest": "לפי בקשה ({{count}})",
@@ -187,7 +191,8 @@
     "homebrew": "נהל ועדכן את Homebrew עצמו. בדוק את הגרסה המותקנת ועדכן את ליבת Homebrew כשגרסה חדשה זמינה.",
     "doctor": "דוקטור הוא תכונה של Homebrew שיכולה לזהות את הגורמים הנפוצים ביותר לשגיאות.",
     "cleanup": "ניקוי מסיר הורדות מיושנות וקבצים שמורים כדי לפנות מקום בדיסק.",
-    "services": "שירותים הם תהליכי רקע (דרך launchd) המנוהלים על ידי Homebrew. ניתן להפעיל, לעצור, להפעיל מחדש או להריץ את השירות של נוסחה."
+    "services": "שירותים הם תהליכי רקע (דרך launchd) המנוהלים על ידי Homebrew. ניתן להפעיל, לעצור, להפעיל מחדש או להריץ את השירות של נוסחה.",
+    "snapshots": "תמונות מצב הן קובצי Brewfile שמורים שניתן לשחזר מאוחר יותר, במחשב זה או באחר, כדי להתקין מחדש את אותם נוסחאות, cask-ים ו-tap-ים."
   },
   "homebrew": {
     "currentVersion": "גרסה נוכחית",
@@ -248,7 +253,12 @@
     "noDoctorOutput": "אין פלט עדיין. לחץ על \"הפעל דוקטור\".",
     "noCleanupOutput": "אין פלט עדיין. לחץ על \"הפעל ניקוי\".",
     "serviceActionLogs": "שירות: {{name}}",
-    "serviceInfo": "מידע על השירות {{name}}"
+    "serviceInfo": "מידע על השירות {{name}}",
+    "confirmRestoreSnapshot": "לשחזר את תמונת המצב \"{{name}}\"? פעולה זו מתקינה את כל הנוסחאות, ה-cask-ים וה-tap-ים הרשומים בה.",
+    "confirmDeleteSnapshot": "למחוק את תמונת המצב \"{{name}}\"? לא ניתן לבטל פעולה זו.",
+    "newSnapshotTitle": "תמונת מצב חדשה",
+    "newSnapshotPlaceholder": "תווית (אופציונלי), למשל לפני-שדרוג-macOS",
+    "newSnapshotHint": "שומר את הנוסחאות, ה-cask-ים וה-tap-ים המותקנים כעת לקובץ Brewfile מתויג בזמן שניתן לשחזר מאוחר יותר."
   },
   "errors": {
     "loadingFormulas": "❌ שגיאה בטעינת נוסחאות!",
@@ -316,7 +326,8 @@
       "cleanup": "ניקוי",
       "settings": "הגדרות",
       "shortcuts": "קיצורי מקלדת...",
-      "services": "שירותים"
+      "services": "שירותים",
+      "snapshots": "תמונות מצב"
     },
     "tools": {
       "title": "כלים",
@@ -364,7 +375,9 @@
     "loadingServices": "טוען שירותים…",
     "noServices": "לא נמצאו שירותי Homebrew.",
     "service": "שירות",
-    "services": "שירותים"
+    "services": "שירותים",
+    "loadingSnapshots": "טוען תמונות מצב…",
+    "noSnapshots": "אין עדיין תמונות מצב. צור אחת כדי לגבות את הנוסחאות, ה-cask-ים וה-tap-ים המותקנים שלך."
   },
   "repository": {
     "noSelection": "לא נבחר מאגר",
@@ -709,5 +722,31 @@
     "hints": {
       "bootstrapFailed": "💡 launchd לא הצליח להפעיל את השירות הזה. ייתכן שהוא כבר נטען, או שהוא זקוק להרשאות root כדי להיקשר ליציאות מורשות (למשל 80/443). נסה לעצור ואז להפעיל שוב, או הרץ אותו כשירות root בטרמינל: sudo brew services start {{name}}"
     }
+  },
+  "snapshots": {
+    "label": "תווית",
+    "created": "נוצר",
+    "size": "גודל",
+    "untitled": "ללא כותרת",
+    "snapshot": "תמונת מצב",
+    "snapshots": "תמונות מצב",
+    "creating": "יוצר…",
+    "removeExtra": "הסר גם חבילות שאינן בתמונת המצב הזו",
+    "removeExtraHint": "מסיר כל נוסחה, cask או tap מותקנים שאינם רשומים בתמונת המצב, כך שהמחשב הזה יתאים לה במדויק. השאר לא מסומן כדי להתקין רק את מה שחסר.",
+    "loadFailed": "טעינת תמונות המצב נכשלה: {{error}}",
+    "createSuccess": "תמונת המצב נוצרה",
+    "createFailed": "יצירת תמונת המצב נכשלה: {{error}}",
+    "restoreSuccess": "תמונת המצב \"{{name}}\" שוחזרה",
+    "restoreFailed": "שחזור תמונת המצב נכשל: {{error}}",
+    "deleteSuccess": "תמונת המצב \"{{name}}\" נמחקה",
+    "deleteFailed": "מחיקת תמונת המצב נכשלה: {{error}}",
+    "buttons": {
+      "restore": "שחזר את \"{{name}}\"",
+      "delete": "מחק את \"{{name}}\"",
+      "restoreConfirm": "כן, שחזר",
+      "deleteConfirm": "כן, מחק",
+      "reveal": "הצג את \"{{name}}\" ב-Finder"
+    },
+    "revealFailed": "הצגת תמונת המצב ב-Finder נכשלה: {{error}}"
   }
 }

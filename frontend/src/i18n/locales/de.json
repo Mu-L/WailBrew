@@ -22,6 +22,7 @@
     "homebrew": "Homebrew",
     "doctor": "Doctor",
     "cleanup": "Cleanup",
+    "snapshots": "Schnappschüsse",
     "refresh": "Aktualisieren",
     "sponsor": "Unterstützen",
     "services": "Dienste",
@@ -40,7 +41,8 @@
     "homebrewDoctor": "Homebrew Doctor",
     "homebrewCleanup": "Homebrew Cleanup",
     "deprecatedFormulae": "Veraltete Formeln",
-    "services": "Dienste"
+    "services": "Dienste",
+    "snapshots": "Schnappschüsse"
   },
   "search": {
     "placeholder": "Suchen...",
@@ -67,7 +69,8 @@
       "repositories": "Repositories",
       "homebrew": "Homebrew",
       "doctor": "Doctor",
-      "cleanup": "Cleanup"
+      "cleanup": "Cleanup",
+      "snapshots": "Schnappschüsse"
     },
     "table": {
       "title": "Tabelle",
@@ -129,7 +132,8 @@
     "toggleFavoritesOnly": "Nur Favoriten anzeigen",
     "togglePinnedOnly": "Nur angepinnte anzeigen",
     "pin": "\"{{name}}\" anpinnen (Updates blockieren)",
-    "unpin": "\"{{name}}\" lösen (Updates zulassen)"
+    "unpin": "\"{{name}}\" lösen (Updates zulassen)",
+    "newSnapshot": "Neuer Schnappschuss"
   },
   "filters": {
     "onRequest": "Auf Anfrage ({{count}})",
@@ -188,7 +192,8 @@
     "homebrew": "Homebrew selbst verwalten und aktualisieren. Überprüfen Sie die installierte Version und aktualisieren Sie Homebrew-Core, wenn eine neuere Version verfügbar ist.",
     "doctor": "Doctor ist ein Feature von Homebrew, welches die häufigsten Fehlerursachen erkennen kann.",
     "cleanup": "Cleanup entfernt veraltete Downloads und Cache-Dateien, um Speicherplatz freizugeben.",
-    "services": "Dienste sind Hintergrundprozesse (über launchd), die von Homebrew verwaltet werden. Starten, stoppen, starten Sie neu oder führen Sie den Dienst einer Formel aus."
+    "services": "Dienste sind Hintergrundprozesse (über launchd), die von Homebrew verwaltet werden. Starten, stoppen, starten Sie neu oder führen Sie den Dienst einer Formel aus.",
+    "snapshots": "Schnappschüsse sind gespeicherte Brewfiles, die du später auf diesem oder einem anderen Mac wiederherstellen kannst, um dieselben Formeln, Casks und Taps erneut zu installieren."
   },
   "homebrew": {
     "currentVersion": "Aktuelle Version",
@@ -251,7 +256,12 @@
     "noDoctorOutput": "Noch keine Ausgabe. Klicken Sie auf \"Doctor ausführen\".",
     "noCleanupOutput": "Noch keine Ausgabe. Klicken Sie auf \"Cleanup ausführen\".",
     "serviceActionLogs": "Dienst: {{name}}",
-    "serviceInfo": "Dienst-Infos für {{name}}"
+    "serviceInfo": "Dienst-Infos für {{name}}",
+    "confirmRestoreSnapshot": "Schnappschuss \"{{name}}\" wiederherstellen? Dabei werden alle enthaltenen Formeln, Casks und Taps installiert.",
+    "confirmDeleteSnapshot": "Schnappschuss \"{{name}}\" löschen? Dies kann nicht rückgängig gemacht werden.",
+    "newSnapshotTitle": "Neuer Schnappschuss",
+    "newSnapshotPlaceholder": "Bezeichnung (optional), z. B. vor-macOS-Upgrade",
+    "newSnapshotHint": "Speichert die aktuell installierten Formeln, Casks und Taps in einem zeitgestempelten Brewfile, das du später wiederherstellen kannst."
   },
   "errors": {
     "loadingFormulas": "❌ Fehler beim Laden der Formeln!",
@@ -319,7 +329,8 @@
       "cleanup": "Cleanup",
       "settings": "Einstellungen",
       "shortcuts": "Tastenkürzel...",
-      "services": "Dienste"
+      "services": "Dienste",
+      "snapshots": "Schnappschüsse"
     },
     "tools": {
       "title": "Werkzeuge",
@@ -367,7 +378,9 @@
     "loadingServices": "Dienste werden geladen…",
     "noServices": "Keine Homebrew-Dienste gefunden.",
     "service": "Dienst",
-    "services": "Dienste"
+    "services": "Dienste",
+    "loadingSnapshots": "Schnappschüsse werden geladen…",
+    "noSnapshots": "Noch keine Schnappschüsse. Erstelle einen, um deine installierten Formeln, Casks und Taps zu sichern."
   },
   "repository": {
     "noSelection": "Kein Repository ausgewählt",
@@ -712,5 +725,31 @@
     "hints": {
       "bootstrapFailed": "💡 launchd konnte diesen Dienst nicht starten. Möglicherweise ist er bereits geladen oder benötigt Root-Rechte für privilegierte Ports (z. B. 80/443). Versuchen Sie „Stoppen“ und dann erneut „Starten“, oder führen Sie ihn als Root-Dienst im Terminal aus: sudo brew services start {{name}}"
     }
+  },
+  "snapshots": {
+    "label": "Bezeichnung",
+    "created": "Erstellt",
+    "size": "Größe",
+    "untitled": "Unbenannt",
+    "snapshot": "Schnappschuss",
+    "snapshots": "Schnappschüsse",
+    "creating": "Wird erstellt…",
+    "removeExtra": "Auch Pakete entfernen, die nicht in diesem Schnappschuss enthalten sind",
+    "removeExtraHint": "Deinstalliert alle installierten Formeln, Casks oder Taps, die nicht im Schnappschuss aufgeführt sind, sodass dieser Mac exakt dem Schnappschuss entspricht. Lasse die Option deaktiviert, um nur Fehlendes zu installieren.",
+    "loadFailed": "Schnappschüsse konnten nicht geladen werden: {{error}}",
+    "createSuccess": "Schnappschuss erstellt",
+    "createFailed": "Schnappschuss konnte nicht erstellt werden: {{error}}",
+    "restoreSuccess": "Schnappschuss \"{{name}}\" wiederhergestellt",
+    "restoreFailed": "Schnappschuss konnte nicht wiederhergestellt werden: {{error}}",
+    "deleteSuccess": "Schnappschuss \"{{name}}\" gelöscht",
+    "deleteFailed": "Schnappschuss konnte nicht gelöscht werden: {{error}}",
+    "buttons": {
+      "restore": "\"{{name}}\" wiederherstellen",
+      "delete": "\"{{name}}\" löschen",
+      "restoreConfirm": "Ja, wiederherstellen",
+      "deleteConfirm": "Ja, löschen",
+      "reveal": "\"{{name}}\" im Finder anzeigen"
+    },
+    "revealFailed": "Schnappschuss konnte nicht im Finder angezeigt werden: {{error}}"
   }
 }

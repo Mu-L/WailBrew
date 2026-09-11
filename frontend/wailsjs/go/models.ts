@@ -14,6 +14,24 @@ export namespace brew {
 	        this.newCasks = source["newCasks"];
 	    }
 	}
+	export class SnapshotEntry {
+	    fileName: string;
+	    label: string;
+	    createdAt: string;
+	    size: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new SnapshotEntry(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.fileName = source["fileName"];
+	        this.label = source["label"];
+	        this.createdAt = source["createdAt"];
+	        this.size = source["size"];
+	    }
+	}
 	export class StartupData {
 	    packages: string[][];
 	    casks: string[][];

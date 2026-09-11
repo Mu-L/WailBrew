@@ -7,6 +7,8 @@ import {
     CheckBrewLocation,
     CheckHomebrewUpdate,
     ClearBrewCache,
+    CreateSnapshot,
+    DeleteSnapshot,
     ExecuteBrewDoctorCommand,
     GetAllBrewCasks,
     GetAllBrewPackages,
@@ -35,9 +37,12 @@ import {
     GetStartupDataWithUpdate,
     GetUninstallCaskWithZap,
     InstallBrewPackage,
+    ListSnapshots,
     PinBrewPackage,
     RemoveBrewPackage,
     RestartBrewService,
+    RestoreSnapshot,
+    RevealSnapshot,
     RunBrewCleanup,
     RunBrewCleanupDryRun,
     RunBrewDoctor,
@@ -84,11 +89,13 @@ import ServicesTable, { type ServiceEntry } from "./components/ServicesTable";
 import SettingsView from "./components/SettingsView";
 import ShortcutsDialog from "./components/ShortcutsDialog";
 import Sidebar from "./components/Sidebar";
+import SnapshotNameDialog from "./components/SnapshotNameDialog";
+import SnapshotsView from "./components/SnapshotsView";
 import TapInputDialog from "./components/TapInputDialog";
 import TitleBar from "./components/TitleBar";
 import UpdateDialog from "./components/UpdateDialog";
 import { mapToSupportedLanguage } from "./i18n/languageUtils";
-import type { PackageEntry, RepositoryEntry, View } from "./types";
+import type { PackageEntry, RepositoryEntry, SnapshotEntry, View } from "./types";
 
 const WAILBREW_UPGRADE_COMMAND = "brew update\nbrew upgrade --cask wailbrew";
 
@@ -178,6 +185,14 @@ const WailBrewApp = () => {
     const [isServiceActionRunning, setIsServiceActionRunning] = useState<boolean>(false);
     const [serviceInfoLogs, setServiceInfoLogs] = useState<string | null>(null);
     const [showServiceInfo, setShowServiceInfo] = useState<boolean>(false);
+    const [snapshots, setSnapshots] = useState<SnapshotEntry[]>([]);
+    const [snapshotsLoaded, setSnapshotsLoaded] = useState<boolean>(false);
+    const [loadingSnapshots, setLoadingSnapshots] = useState<boolean>(false);
+    const [creatingSnapshot, setCreatingSnapshot] = useState<boolean>(false);
+    const [showSnapshotNameDialog, setShowSnapshotNameDialog] = useState<boolean>(false);
+    const [snapshotToRestore, setSnapshotToRestore] = useState<SnapshotEntry | null>(null);
+    const [snapshotToDelete, setSnapshotToDelete] = useState<SnapshotEntry | null>(null);
+    const [restoreCleanup, setRestoreCleanup] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string>("");
     const [brewLocationSuggestion, setBrewLocationSuggestion] = useState<{ current: string; suggested: string } | null>(
@@ -680,6 +695,14 @@ const WailBrewApp = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [view, loading, servicesLoaded, loadingServices]);
+
+    // Load Brewfile snapshots when user switches to "snapshots" view.
+    useEffect(() => {
+        if (view === "snapshots" && !loading && !snapshotsLoaded && !loadingSnapshots) {
+            loadSnapshots();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [view, loading, snapshotsLoaded, loadingSnapshots]);
 
     // Apply pending dependency selection once allPackages has finished loading
     useEffect(() => {
@@ -2302,6 +2325,82 @@ const WailBrewApp = () => {
         }
     };
 
+    // Load saved Brewfile snapshots (lazy loaded when the view opens).
+    const loadSnapshots = async () => {
+        if (loadingSnapshots) return;
+        setLoadingSnapshots(true);
+        try {
+            const rows = await ListSnapshots();
+            setSnapshots((rows || []) as SnapshotEntry[]);
+            setSnapshotsLoaded(true);
+        } catch (err) {
+            console.error("Error loading snapshots:", err);
+            toast.error(t("snapshots.loadFailed", { error: String(err) }));
+        } finally {
+            setLoadingSnapshots(false);
+        }
+    };
+
+    const handleNewSnapshot = () => setShowSnapshotNameDialog(true);
+
+    const handleConfirmNewSnapshot = async (label: string) => {
+        if (creatingSnapshot) return;
+        setShowSnapshotNameDialog(false);
+        setCreatingSnapshot(true);
+        try {
+            await CreateSnapshot(label);
+            toast.success(t("snapshots.createSuccess"));
+            setSnapshotsLoaded(false);
+            await loadSnapshots();
+        } catch (err) {
+            toast.error(t("snapshots.createFailed", { error: String(err) }));
+        } finally {
+            setCreatingSnapshot(false);
+        }
+    };
+
+    const handleRestoreSnapshot = (snapshot: SnapshotEntry) => {
+        setRestoreCleanup(false);
+        setSnapshotToRestore(snapshot);
+    };
+
+    const handleConfirmRestoreSnapshot = async () => {
+        if (!snapshotToRestore) return;
+        const snapshot = snapshotToRestore;
+        setSnapshotToRestore(null);
+        try {
+            await RestoreSnapshot(snapshot.fileName, restoreCleanup);
+            toast.success(t("snapshots.restoreSuccess", { name: snapshot.label || snapshot.fileName }));
+            await handleRefreshPackages();
+        } catch (err) {
+            toast.error(t("snapshots.restoreFailed", { error: String(err) }));
+        }
+    };
+
+    const handleDeleteSnapshot = (snapshot: SnapshotEntry) => setSnapshotToDelete(snapshot);
+
+    const handleConfirmDeleteSnapshot = async () => {
+        if (!snapshotToDelete) return;
+        const snapshot = snapshotToDelete;
+        setSnapshotToDelete(null);
+        try {
+            await DeleteSnapshot(snapshot.fileName);
+            toast.success(t("snapshots.deleteSuccess", { name: snapshot.label || snapshot.fileName }));
+            setSnapshotsLoaded(false);
+            await loadSnapshots();
+        } catch (err) {
+            toast.error(t("snapshots.deleteFailed", { error: String(err) }));
+        }
+    };
+
+    const handleRevealSnapshot = async (snapshot: SnapshotEntry) => {
+        try {
+            await RevealSnapshot(snapshot.fileName);
+        } catch (err) {
+            toast.error(t("snapshots.revealFailed", { error: String(err) }));
+        }
+    };
+
     const handleServiceSelect = async (service: ServiceEntry) => {
         setSelectedService(service);
         // Fetch the PID for running services (the list JSON doesn't include it).
@@ -3353,6 +3452,17 @@ const WailBrewApp = () => {
                             }}
                         />
                     )}
+                    {view === "snapshots" && (
+                        <SnapshotsView
+                            snapshots={snapshots}
+                            loading={loadingSnapshots}
+                            creating={creatingSnapshot}
+                            onNew={handleNewSnapshot}
+                            onRestore={handleRestoreSnapshot}
+                            onDelete={handleDeleteSnapshot}
+                            onReveal={handleRevealSnapshot}
+                        />
+                    )}
                     {view === "settings" && (
                         <SettingsView
                             onRefreshPackages={handleRefreshPackages}
@@ -3448,6 +3558,34 @@ const WailBrewApp = () => {
                             action: "trust",
                             targets: trustPrompt ? [trustPrompt.tap] : [],
                         }}
+                    />
+                    <SnapshotNameDialog
+                        open={showSnapshotNameDialog}
+                        onConfirm={handleConfirmNewSnapshot}
+                        onCancel={() => setShowSnapshotNameDialog(false)}
+                    />
+                    <ConfirmDialog
+                        open={snapshotToRestore !== null}
+                        message={t("dialogs.confirmRestoreSnapshot", {
+                            name: snapshotToRestore?.label || snapshotToRestore?.fileName,
+                        })}
+                        onConfirm={handleConfirmRestoreSnapshot}
+                        onCancel={() => setSnapshotToRestore(null)}
+                        confirmLabel={t("snapshots.buttons.restoreConfirm")}
+                        checkboxLabel={t("snapshots.removeExtra")}
+                        checkboxHint={t("snapshots.removeExtraHint")}
+                        checkboxChecked={restoreCleanup}
+                        onCheckboxChange={setRestoreCleanup}
+                    />
+                    <ConfirmDialog
+                        open={snapshotToDelete !== null}
+                        message={t("dialogs.confirmDeleteSnapshot", {
+                            name: snapshotToDelete?.label || snapshotToDelete?.fileName,
+                        })}
+                        onConfirm={handleConfirmDeleteSnapshot}
+                        onCancel={() => setSnapshotToDelete(null)}
+                        confirmLabel={t("snapshots.buttons.deleteConfirm")}
+                        destructive={true}
                     />
                     <LogDialog
                         open={updateLogs !== null}

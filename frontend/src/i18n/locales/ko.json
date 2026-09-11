@@ -26,7 +26,8 @@
     "sponsor": "후원",
     "services": "서비스",
     "collapse": "사이드바 접기",
-    "expand": "사이드바 펼치기"
+    "expand": "사이드바 펼치기",
+    "snapshots": "스냅샷"
   },
   "headers": {
     "installedFormulas": "설치된 Formulae",
@@ -40,7 +41,8 @@
     "homebrewDoctor": "Homebrew Doctor",
     "homebrewCleanup": "Homebrew Cleanup",
     "deprecatedFormulae": "지원 중단된 Formulae",
-    "services": "서비스"
+    "services": "서비스",
+    "snapshots": "스냅샷"
   },
   "search": {
     "placeholder": "검색...",
@@ -67,7 +69,8 @@
       "repositories": "Repositories",
       "homebrew": "Homebrew",
       "doctor": "Doctor",
-      "cleanup": "Cleanup"
+      "cleanup": "Cleanup",
+      "snapshots": "스냅샷"
     },
     "table": {
       "title": "테이블",
@@ -128,7 +131,8 @@
     "toggleFavoritesOnly": "즐겨찾기만 표시",
     "togglePinnedOnly": "고정된 항목만 표시",
     "pin": "\"{{name}}\" 고정 (업데이트 차단)",
-    "unpin": "\"{{name}}\" 고정 해제 (업데이트 허용)"
+    "unpin": "\"{{name}}\" 고정 해제 (업데이트 허용)",
+    "newSnapshot": "새 스냅샷"
   },
   "filters": {
     "onRequest": "요청 설치 ({{count}})",
@@ -187,7 +191,8 @@
     "homebrew": "Homebrew 자체를 관리하고 업데이트합니다. 설치된 버전을 확인하고 새 버전이 있으면 Homebrew 코어를 업데이트합니다.",
     "doctor": "Doctor는 가장 일반적인 오류 원인을 감지할 수 있는 Homebrew 기능입니다.",
     "cleanup": "Cleanup은 오래된 다운로드와 캐시 파일을 제거하여 디스크 공간을 확보합니다.",
-    "services": "서비스는 Homebrew가 관리하는 백그라운드 프로세스(launchd)입니다. 포뮬러의 서비스를 시작, 중지, 재시작하거나 실행할 수 있습니다."
+    "services": "서비스는 Homebrew가 관리하는 백그라운드 프로세스(launchd)입니다. 포뮬러의 서비스를 시작, 중지, 재시작하거나 실행할 수 있습니다.",
+    "snapshots": "스냅샷은 저장된 Brewfile로, 이 Mac이나 다른 Mac에서 나중에 복원하여 동일한 포뮬러, 캐스크, 탭을 다시 설치할 수 있습니다."
   },
   "homebrew": {
     "currentVersion": "현재 버전",
@@ -248,7 +253,12 @@
     "noDoctorOutput": "아직 출력이 없습니다. \"Doctor 실행\"을 클릭하세요.",
     "noCleanupOutput": "아직 출력이 없습니다. \"Cleanup 실행\"을 클릭하세요.",
     "serviceActionLogs": "서비스: {{name}}",
-    "serviceInfo": "{{name}} 서비스 정보"
+    "serviceInfo": "{{name}} 서비스 정보",
+    "confirmRestoreSnapshot": "스냅샷 \"{{name}}\"을(를) 복원하시겠습니까? 여기에 나열된 모든 포뮬러, 캐스크, 탭이 설치됩니다.",
+    "confirmDeleteSnapshot": "스냅샷 \"{{name}}\"을(를) 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+    "newSnapshotTitle": "새 스냅샷",
+    "newSnapshotPlaceholder": "라벨(선택 사항), 예: macOS-업그레이드-전",
+    "newSnapshotHint": "현재 설치된 포뮬러, 캐스크, 탭을 나중에 복원할 수 있는 타임스탬프가 찍힌 Brewfile로 저장합니다."
   },
   "errors": {
     "loadingFormulas": "❌ Formulae 로딩 오류!",
@@ -316,7 +326,8 @@
       "cleanup": "Cleanup",
       "settings": "설정",
       "shortcuts": "키보드 단축키...",
-      "services": "서비스"
+      "services": "서비스",
+      "snapshots": "스냅샷"
     },
     "tools": {
       "title": "도구",
@@ -364,7 +375,9 @@
     "loadingServices": "서비스 불러오는 중…",
     "noServices": "Homebrew 서비스를 찾을 수 없습니다.",
     "service": "서비스",
-    "services": "서비스"
+    "services": "서비스",
+    "loadingSnapshots": "스냅샷 불러오는 중…",
+    "noSnapshots": "아직 스냅샷이 없습니다. 설치된 포뮬러, 캐스크, 탭을 백업하려면 하나 생성하세요."
   },
   "repository": {
     "noSelection": "선택된 Repository 없음",
@@ -709,5 +722,31 @@
     "hints": {
       "bootstrapFailed": "💡 launchd가 이 서비스를 시작하지 못했습니다. 이미 로드되어 있거나 특권 포트(예: 80/443)를 바인딩하려면 root 권한이 필요할 수 있습니다. 중지 후 다시 시작하거나, 터미널에서 root 서비스로 실행하세요: sudo brew services start {{name}}"
     }
+  },
+  "snapshots": {
+    "label": "라벨",
+    "created": "생성일",
+    "size": "크기",
+    "untitled": "제목 없음",
+    "snapshot": "스냅샷",
+    "snapshots": "스냅샷",
+    "creating": "생성 중…",
+    "removeExtra": "이 스냅샷에 없는 패키지도 제거",
+    "removeExtraHint": "스냅샷에 나열되지 않은 설치된 포뮬러, 캐스크, 탭을 제거하여 이 Mac이 스냅샷과 정확히 일치하도록 합니다. 선택 해제하면 누락된 항목만 설치합니다.",
+    "loadFailed": "스냅샷을 불러오지 못했습니다: {{error}}",
+    "createSuccess": "스냅샷이 생성되었습니다",
+    "createFailed": "스냅샷 생성에 실패했습니다: {{error}}",
+    "restoreSuccess": "스냅샷 \"{{name}}\"을(를) 복원했습니다",
+    "restoreFailed": "스냅샷 복원에 실패했습니다: {{error}}",
+    "deleteSuccess": "스냅샷 \"{{name}}\"을(를) 삭제했습니다",
+    "deleteFailed": "스냅샷 삭제에 실패했습니다: {{error}}",
+    "buttons": {
+      "restore": "\"{{name}}\" 복원",
+      "delete": "\"{{name}}\" 삭제",
+      "restoreConfirm": "예, 복원",
+      "deleteConfirm": "예, 삭제",
+      "reveal": "Finder에서 \"{{name}}\" 표시"
+    },
+    "revealFailed": "Finder에서 스냅샷을 표시하지 못했습니다: {{error}}"
   }
 }

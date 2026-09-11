@@ -88,6 +88,13 @@ type Service interface {
 	ExportBrewfile(filePath string) error
 	ImportBrewfile(filePath string, cleanup bool) error
 
+	// Snapshot operations
+	CreateSnapshot(label string) (SnapshotEntry, error)
+	ListSnapshots() ([]SnapshotEntry, error)
+	RestoreSnapshot(fileName string, cleanup bool) error
+	DeleteSnapshot(fileName string) error
+	RevealSnapshot(fileName string) error
+
 	// Cache management
 	ClearCache()
 }
@@ -120,6 +127,7 @@ type serviceImpl struct {
 	tapService      *TapService
 	servicesService *ServicesService
 	startupService  *StartupService
+	snapshotService *SnapshotService
 }
 
 // NewService creates a new brew service
@@ -137,6 +145,7 @@ func NewService(
 	parseWarnings func(string) map[string]string,
 	getNoQuarantine func() bool,
 	getAutoRelaunch func() bool,
+	getSnapshotsDir func() (string, error),
 ) Service {
 	// Create database service first (needs executor)
 	databaseService := NewDatabaseService(executor)
@@ -209,6 +218,9 @@ func NewService(
 	// Create startup service for optimized initial data loading
 	startupService := NewStartupService(listService, outdatedService, databaseService)
 
+	// Create snapshot service
+	snapshotService := NewSnapshotService(brewPath, getBrewEnvFunc, getSnapshotsDir)
+
 	return &serviceImpl{
 		executor:        executor,
 		getBrewEnvFunc:  getBrewEnvFunc,
@@ -228,6 +240,7 @@ func NewService(
 		tapService:      tapService,
 		servicesService: servicesService,
 		startupService:  startupService,
+		snapshotService: snapshotService,
 	}
 }
 
@@ -798,4 +811,24 @@ func (s *serviceImpl) ImportBrewfile(filePath string, cleanup bool) error {
 	}
 
 	return nil
+}
+
+func (s *serviceImpl) CreateSnapshot(label string) (SnapshotEntry, error) {
+	return s.snapshotService.CreateSnapshot(label)
+}
+
+func (s *serviceImpl) ListSnapshots() ([]SnapshotEntry, error) {
+	return s.snapshotService.ListSnapshots()
+}
+
+func (s *serviceImpl) RestoreSnapshot(fileName string, cleanup bool) error {
+	return s.snapshotService.RestoreSnapshot(fileName, cleanup)
+}
+
+func (s *serviceImpl) DeleteSnapshot(fileName string) error {
+	return s.snapshotService.DeleteSnapshot(fileName)
+}
+
+func (s *serviceImpl) RevealSnapshot(fileName string) error {
+	return s.snapshotService.RevealSnapshot(fileName)
 }

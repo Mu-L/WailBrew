@@ -3,6 +3,7 @@ import {
     AppWindow,
     Beer,
     FolderGit2,
+    History,
     Layers,
     Leaf,
     Library,
@@ -132,6 +133,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                 { view: "services", icon: Rocket, label: t("sidebar.services"), badge: servicesCount, shortcut: "P" },
                 { view: "doctor", icon: Stethoscope, label: t("sidebar.doctor"), shortcut: "9" },
                 { view: "cleanup", icon: Sparkles, label: t("sidebar.cleanup"), shortcut: "0" },
+                { view: "snapshots", icon: History, label: t("sidebar.snapshots"), shortcut: "B" },
             ],
         },
     ];

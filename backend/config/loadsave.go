@@ -81,6 +81,17 @@ func GetConfigPath() (string, error) {
 	return xdgPath, nil
 }
 
+// GetSnapshotsDir resolves the directory where WailBrew stores Brewfile
+// snapshots, alongside the resolved config file (e.g.
+// ~/.config/wailbrew/snapshots).
+func GetSnapshotsDir() (string, error) {
+	configPath, err := GetConfigPath()
+	if err != nil {
+		return "", err
+	}
+	return filepath.Join(filepath.Dir(configPath), "snapshots"), nil
+}
+
 // ResolvedPath returns the config file path that was determined during Load.
 // Falls back to GetConfigPath if Load has not been called yet.
 func (c *Config) ResolvedPath() (string, error) {

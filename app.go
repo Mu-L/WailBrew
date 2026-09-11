@@ -808,6 +808,38 @@ func (a *App) ImportBrewfile(filePath string, cleanup bool) error {
 	return a.brewService.ImportBrewfile(filePath, cleanup)
 }
 
+// SnapshotEntry describes one saved Brewfile snapshot, exposed to the
+// frontend for the Snapshots view.
+type SnapshotEntry = brew.SnapshotEntry
+
+// CreateSnapshot saves a new Brewfile snapshot of the currently installed
+// formulae, casks, and taps. label is optional.
+func (a *App) CreateSnapshot(label string) (SnapshotEntry, error) {
+	return a.brewService.CreateSnapshot(label)
+}
+
+// ListSnapshots returns all saved snapshots, newest first.
+func (a *App) ListSnapshots() ([]SnapshotEntry, error) {
+	return a.brewService.ListSnapshots()
+}
+
+// RestoreSnapshot installs everything listed in the given snapshot. cleanup
+// additionally removes anything installed but not listed in it.
+func (a *App) RestoreSnapshot(fileName string, cleanup bool) error {
+	return a.brewService.RestoreSnapshot(fileName, cleanup)
+}
+
+// DeleteSnapshot removes a saved snapshot.
+func (a *App) DeleteSnapshot(fileName string) error {
+	return a.brewService.DeleteSnapshot(fileName)
+}
+
+// RevealSnapshot opens Finder (or the platform equivalent) with the given
+// snapshot file selected.
+func (a *App) RevealSnapshot(fileName string) error {
+	return a.brewService.RevealSnapshot(fileName)
+}
+
 func (a *App) OpenConfigFile() error {
 	configPath, err := a.config.ResolvedPath()
 	if err != nil {
@@ -1232,6 +1264,7 @@ func (a *App) reconfigureBrew() {
 		brew.ParseWarnings,
 		func() bool { return a.GetNoQuarantine() },
 		func() bool { return a.GetAutoRelaunch() },
+		config.GetSnapshotsDir,
 	)
 }
 
