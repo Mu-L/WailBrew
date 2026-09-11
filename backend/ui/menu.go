@@ -16,6 +16,7 @@ type AppInterface interface {
 	OpenURL(url string)
 	GetTranslation(key string, params map[string]string) string
 	ExportBrewfile(filePath string) error
+	ImportBrewfile(filePath string, cleanup bool) error
 	OpenConfigFile() error
 	ClearConfigFile() error
 }
@@ -137,6 +138,44 @@ func Build(app AppInterface) *menu.Menu {
 					Message: fmt.Sprintf(getT("menu.tools.exportMessage"), saveDialog),
 				})
 			}
+		}
+	})
+	ToolsMenu.AddText(getT("menu.tools.importBrewfile"), keys.Combo("i", keys.CmdOrCtrlKey, keys.ShiftKey), func(cd *menu.CallbackData) {
+		ctx := getCtx()
+		// Open file picker dialog to choose a Brewfile to import
+		openDialog, err := rt.OpenFileDialog(ctx, rt.OpenDialogOptions{
+			Title:                getT("menu.tools.importBrewfile"),
+			CanCreateDirectories: false,
+		})
+		if err != nil || openDialog == "" {
+			return
+		}
+
+		cleanupChoice, _ := rt.MessageDialog(ctx, rt.MessageDialogOptions{
+			Type:          rt.QuestionDialog,
+			Title:         getT("menu.tools.importCleanupConfirmTitle"),
+			Message:       getT("menu.tools.importCleanupConfirmMessage"),
+			Buttons:       []string{getT("menu.tools.importCleanupYes"), getT("menu.tools.importKeepExtra"), getT("buttons.cancel")},
+			DefaultButton: getT("menu.tools.importKeepExtra"),
+			CancelButton:  getT("buttons.cancel"),
+		})
+		if cleanupChoice == getT("buttons.cancel") {
+			return
+		}
+		cleanup := cleanupChoice == getT("menu.tools.importCleanupYes")
+
+		if err := app.ImportBrewfile(openDialog, cleanup); err != nil {
+			_, _ = rt.MessageDialog(ctx, rt.MessageDialogOptions{
+				Type:    rt.ErrorDialog,
+				Title:   getT("menu.tools.importFailed"),
+				Message: fmt.Sprintf("Failed to import Brewfile: %v", err),
+			})
+		} else {
+			_, _ = rt.MessageDialog(ctx, rt.MessageDialogOptions{
+				Type:    rt.InfoDialog,
+				Title:   getT("menu.tools.importSuccess"),
+				Message: fmt.Sprintf(getT("menu.tools.importMessage"), openDialog),
+			})
 		}
 	})
 	ToolsMenu.AddText(getT("menu.tools.openConfigFile"), nil, func(cd *menu.CallbackData) {

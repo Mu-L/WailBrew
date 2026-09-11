@@ -82,7 +82,8 @@
     "actions": {
       "title": "Eylemler",
       "refresh": "Paketleri yenile",
-      "exportBrewfile": "Brewfile dışa aktar"
+      "exportBrewfile": "Brewfile dışa aktar",
+      "importBrewfile": "Brewfile içe aktar"
     },
     "dialogs": {
       "title": "İletişim Kutuları",
@@ -324,6 +325,14 @@
       "exportSuccess": "Dışa Aktarma Başarılı",
       "exportFailed": "Dışa Aktarma Başarısız",
       "exportMessage": "Brewfile başarıyla dışa aktarıldı:\n%s",
+      "importBrewfile": "Brewfile İçe Aktar...",
+      "importCleanupConfirmTitle": "Brewfile'da Olmayan Paketler Kaldırılsın mı?",
+      "importCleanupConfirmMessage": "Bu Brewfile'da listelenmeyen yüklü formula, cask veya tap'ları da kaldırmak ister misiniz? Bu işlem geri alınamaz.",
+      "importCleanupYes": "Fazla Paketleri Kaldır",
+      "importKeepExtra": "Fazla Paketleri Koru",
+      "importSuccess": "İçe Aktarma Başarılı",
+      "importFailed": "İçe Aktarma Başarısız",
+      "importMessage": "Brewfile başarıyla içe aktarıldı:\n%s",
       "openConfigFile": "Yapılandırma Dosyasını Aç",
       "openConfigFailed": "Yapılandırma Açılamadı",
       "clearConfigFile": "Yapılandırma Dosyasını Temizle",

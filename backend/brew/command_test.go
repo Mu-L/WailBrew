@@ -172,6 +172,27 @@ func TestFormatCommand(t *testing.T) {
 	}
 }
 
+func TestBuildBundleInstallArgs(t *testing.T) {
+	tests := []struct {
+		name     string
+		filePath string
+		cleanup  bool
+		expected []string
+	}{
+		{"additive import", "/tmp/Brewfile", false, []string{"bundle", "install", "--file=/tmp/Brewfile"}},
+		{"import with cleanup", "/tmp/Brewfile", true, []string{"bundle", "install", "--file=/tmp/Brewfile", "--force-cleanup"}},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := BuildBundleInstallArgs(tt.filePath, tt.cleanup)
+			if !reflect.DeepEqual(got, tt.expected) {
+				t.Errorf("BuildBundleInstallArgs() = %v, want %v", got, tt.expected)
+			}
+		})
+	}
+}
+
 func TestParseBrewCommand(t *testing.T) {
 	tests := []struct {
 		name      string

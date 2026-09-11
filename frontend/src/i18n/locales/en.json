@@ -82,7 +82,8 @@
     "actions": {
       "title": "Actions",
       "refresh": "Refresh packages",
-      "exportBrewfile": "Export Brewfile"
+      "exportBrewfile": "Export Brewfile",
+      "importBrewfile": "Import Brewfile"
     },
     "dialogs": {
       "title": "Dialogs",
@@ -327,6 +328,14 @@
       "exportSuccess": "Export Successful",
       "exportFailed": "Export Failed",
       "exportMessage": "Brewfile exported successfully to:\n%s",
+      "importBrewfile": "Import Brewfile...",
+      "importCleanupConfirmTitle": "Remove Packages Not in Brewfile?",
+      "importCleanupConfirmMessage": "Do you also want to uninstall any installed formulae, casks, or taps that are not listed in this Brewfile? This cannot be undone.",
+      "importCleanupYes": "Remove Extra Packages",
+      "importKeepExtra": "Keep Extra Packages",
+      "importSuccess": "Import Successful",
+      "importFailed": "Import Failed",
+      "importMessage": "Brewfile imported successfully from:\n%s",
       "openConfigFile": "Open Config File",
       "openConfigFailed": "Failed to Open Config",
       "clearConfigFile": "Clear Config File",

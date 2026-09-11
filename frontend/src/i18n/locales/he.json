@@ -82,7 +82,8 @@
     "actions": {
       "title": "פעולות",
       "refresh": "רענון חבילות",
-      "exportBrewfile": "ייצוא Brewfile"
+      "exportBrewfile": "ייצוא Brewfile",
+      "importBrewfile": "ייבוא Brewfile"
     },
     "dialogs": {
       "title": "דיאלוגים",
@@ -324,6 +325,14 @@
       "exportSuccess": "הייצוא הצליח",
       "exportFailed": "הייצוא נכשל",
       "exportMessage": "Brewfile יוצא בהצלחה אל:\n%s",
+      "importBrewfile": "ייבא Brewfile...",
+      "importCleanupConfirmTitle": "להסיר חבילות שאינן ב-Brewfile?",
+      "importCleanupConfirmMessage": "האם ברצונך גם להסיר נוסחאות, cask-ים או tap-ים מותקנים שאינם רשומים ב-Brewfile הזה? לא ניתן לבטל פעולה זו.",
+      "importCleanupYes": "הסר חבילות עודפות",
+      "importKeepExtra": "שמור חבילות עודפות",
+      "importSuccess": "הייבוא הצליח",
+      "importFailed": "הייבוא נכשל",
+      "importMessage": "Brewfile יובא בהצלחה מ:\n%s",
       "openConfigFile": "פתח קובץ הגדרות",
       "openConfigFailed": "פתיחת קובץ ההגדרות נכשלה",
       "clearConfigFile": "נקה קובץ הגדרות",

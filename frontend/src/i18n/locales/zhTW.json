@@ -82,7 +82,8 @@
     "actions": {
       "title": "操作",
       "refresh": "重新整理套件",
-      "exportBrewfile": "匯出 Brewfile"
+      "exportBrewfile": "匯出 Brewfile",
+      "importBrewfile": "匯入 Brewfile"
     },
     "dialogs": {
       "title": "對話框",
@@ -324,6 +325,14 @@
       "exportSuccess": "匯出成功",
       "exportFailed": "匯出失敗",
       "exportMessage": "Brewfile 已成功匯出至：\n%s",
+      "importBrewfile": "匯入 Brewfile...",
+      "importCleanupConfirmTitle": "是否移除未列於 Brewfile 中的套件？",
+      "importCleanupConfirmMessage": "是否同時解除安裝所有已安裝但未列在此 Brewfile 中的 formula、cask 或 tap？此操作無法復原。",
+      "importCleanupYes": "移除多餘套件",
+      "importKeepExtra": "保留多餘套件",
+      "importSuccess": "匯入成功",
+      "importFailed": "匯入失敗",
+      "importMessage": "Brewfile 已成功從以下位置匯入：\n%s",
       "openConfigFile": "開啟設定檔",
       "openConfigFailed": "開啟設定失敗",
       "clearConfigFile": "清除設定檔",

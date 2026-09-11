@@ -82,7 +82,8 @@
     "actions": {
       "title": "Действия",
       "refresh": "Обновить пакеты",
-      "exportBrewfile": "Экспортировать Brewfile"
+      "exportBrewfile": "Экспортировать Brewfile",
+      "importBrewfile": "Импортировать Brewfile"
     },
     "dialogs": {
       "title": "Диалоги",
@@ -324,6 +325,14 @@
       "exportSuccess": "Экспорт успешен",
       "exportFailed": "Экспорт не удался",
       "exportMessage": "Brewfile успешно экспортирован в:\n%s",
+      "importBrewfile": "Импортировать Brewfile...",
+      "importCleanupConfirmTitle": "Удалить пакеты, отсутствующие в Brewfile?",
+      "importCleanupConfirmMessage": "Хотите также удалить все установленные формулы, кэски или репозитории (taps), которые не указаны в этом Brewfile? Это действие нельзя отменить.",
+      "importCleanupYes": "Удалить лишние пакеты",
+      "importKeepExtra": "Оставить лишние пакеты",
+      "importSuccess": "Импорт успешен",
+      "importFailed": "Импорт не удался",
+      "importMessage": "Brewfile успешно импортирован из:\n%s",
       "openConfigFile": "Открыть файл конфигурации",
       "openConfigFailed": "Ошибка открытия конфигурации",
       "clearConfigFile": "Очистить файл конфигурации",

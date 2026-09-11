@@ -82,7 +82,8 @@
     "actions": {
       "title": "동작",
       "refresh": "패키지 새로고침",
-      "exportBrewfile": "Brewfile 내보내기"
+      "exportBrewfile": "Brewfile 내보내기",
+      "importBrewfile": "Brewfile 가져오기"
     },
     "dialogs": {
       "title": "대화상자",
@@ -324,6 +325,14 @@
       "exportSuccess": "내보내기 성공",
       "exportFailed": "내보내기 실패",
       "exportMessage": "Brewfile이 다음 위치로 성공적으로 내보내졌습니다:\n%s",
+      "importBrewfile": "Brewfile 가져오기...",
+      "importCleanupConfirmTitle": "Brewfile에 없는 패키지를 제거하시겠습니까?",
+      "importCleanupConfirmMessage": "이 Brewfile에 나열되지 않은 설치된 포뮬러, 캐스크 또는 탭도 제거하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+      "importCleanupYes": "추가 패키지 제거",
+      "importKeepExtra": "추가 패키지 유지",
+      "importSuccess": "가져오기 성공",
+      "importFailed": "가져오기 실패",
+      "importMessage": "Brewfile을 다음 위치에서 성공적으로 가져왔습니다:\n%s",
       "openConfigFile": "구성 파일 열기",
       "openConfigFailed": "구성 열기 실패",
       "clearConfigFile": "구성 파일 지우기",

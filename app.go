@@ -804,6 +804,10 @@ func (a *App) ExportBrewfile(filePath string) error {
 	return a.brewService.ExportBrewfile(filePath)
 }
 
+func (a *App) ImportBrewfile(filePath string, cleanup bool) error {
+	return a.brewService.ImportBrewfile(filePath, cleanup)
+}
+
 func (a *App) OpenConfigFile() error {
 	configPath, err := a.config.ResolvedPath()
 	if err != nil {

@@ -82,7 +82,8 @@
     "actions": {
       "title": "Actions",
       "refresh": "Actualiser les paquets",
-      "exportBrewfile": "Exporter le Brewfile"
+      "exportBrewfile": "Exporter le Brewfile",
+      "importBrewfile": "Importer le Brewfile"
     },
     "dialogs": {
       "title": "Dialogues",
@@ -324,6 +325,14 @@
       "exportSuccess": "Exportation réussie",
       "exportFailed": "Échec de l'exportation",
       "exportMessage": "Brewfile exporté avec succès vers :\n%s",
+      "importBrewfile": "Importer Brewfile...",
+      "importCleanupConfirmTitle": "Supprimer les paquets absents du Brewfile ?",
+      "importCleanupConfirmMessage": "Voulez-vous également désinstaller toutes les formules, casks ou taps installés qui ne figurent pas dans ce Brewfile ? Cette action est irréversible.",
+      "importCleanupYes": "Supprimer les paquets en trop",
+      "importKeepExtra": "Conserver les paquets en trop",
+      "importSuccess": "Importation réussie",
+      "importFailed": "Échec de l'importation",
+      "importMessage": "Brewfile importé avec succès depuis :\n%s",
       "openConfigFile": "Ouvrir le fichier de configuration",
       "openConfigFailed": "Échec de l'ouverture de la configuration",
       "clearConfigFile": "Effacer le fichier de configuration",

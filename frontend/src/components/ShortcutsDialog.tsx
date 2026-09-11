@@ -71,6 +71,7 @@ const ShortcutsDialog: React.FC<ShortcutsDialogProps> = ({ open, onClose }) => {
             shortcuts: [
                 { action: t("shortcuts.actions.refresh"), keys: `${cmdKey}${shiftKey}R` },
                 { action: t("shortcuts.actions.exportBrewfile"), keys: `${cmdKey}E` },
+                { action: t("shortcuts.actions.importBrewfile"), keys: `${cmdKey}${shiftKey}I` },
             ],
         },
         {

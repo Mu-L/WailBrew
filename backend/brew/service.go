@@ -86,6 +86,7 @@ type Service interface {
 	UpdateHomebrew(ctx context.Context) string
 	GetHomebrewCaskVersion() (string, error)
 	ExportBrewfile(filePath string) error
+	ImportBrewfile(filePath string, cleanup bool) error
 
 	// Cache management
 	ClearCache()
@@ -777,6 +778,23 @@ func (s *serviceImpl) ExportBrewfile(filePath string) error {
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		return fmt.Errorf("brew bundle dump failed: %v\nOutput: %s", err, string(output))
+	}
+
+	return nil
+}
+
+// ImportBrewfile installs everything listed in the Brewfile at filePath.
+// When cleanup is true, it also uninstalls any installed formulae, casks, or
+// taps that are not listed in the file, matching the machine to the file
+// exactly; otherwise it only adds what's missing and leaves everything else
+// untouched.
+func (s *serviceImpl) ImportBrewfile(filePath string, cleanup bool) error {
+	cmd := exec.Command(s.brewPath, BuildBundleInstallArgs(filePath, cleanup)...)
+	system.ApplyEnvironment(cmd, s.getBrewEnvFunc())
+
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		return fmt.Errorf("brew bundle install failed: %v\nOutput: %s", err, string(output))
 	}
 
 	return nil

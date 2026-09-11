@@ -98,6 +98,17 @@ func BuildTrustArgs(name string) []string {
 	return []string{"trust", name}
 }
 
+// BuildBundleInstallArgs builds the arguments for importing a Brewfile.
+// cleanup additionally removes any installed formulae, casks, or taps that
+// are not listed in the file, matching the machine to the file exactly.
+func BuildBundleInstallArgs(filePath string, cleanup bool) []string {
+	args := []string{"bundle", "install", "--file=" + filePath}
+	if cleanup {
+		args = append(args, "--force-cleanup")
+	}
+	return args
+}
+
 // greedyFlags maps the configured outdated detection mode to the matching
 // brew upgrade flag. Standard mode adds nothing.
 func greedyFlags(outdatedFlag string) []string {

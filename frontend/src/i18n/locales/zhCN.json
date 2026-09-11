@@ -82,7 +82,8 @@
     "actions": {
       "title": "操作",
       "refresh": "刷新包",
-      "exportBrewfile": "导出 Brewfile"
+      "exportBrewfile": "导出 Brewfile",
+      "importBrewfile": "导入 Brewfile"
     },
     "dialogs": {
       "title": "对话框",
@@ -324,6 +325,14 @@
       "exportSuccess": "导出成功",
       "exportFailed": "导出失败",
       "exportMessage": "Brewfile 已成功导出到：\n%s",
+      "importBrewfile": "导入 Brewfile...",
+      "importCleanupConfirmTitle": "是否移除未列于 Brewfile 中的软件包？",
+      "importCleanupConfirmMessage": "是否同时卸载所有已安装但未列在此 Brewfile 中的 formula、cask 或 tap？此操作无法撤销。",
+      "importCleanupYes": "移除多余软件包",
+      "importKeepExtra": "保留多余软件包",
+      "importSuccess": "导入成功",
+      "importFailed": "导入失败",
+      "importMessage": "Brewfile 已成功从以下位置导入：\n%s",
       "openConfigFile": "打开配置文件",
       "openConfigFailed": "打开配置失败",
       "clearConfigFile": "清除配置文件",

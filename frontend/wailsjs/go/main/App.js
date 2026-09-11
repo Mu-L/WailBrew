@@ -230,6 +230,10 @@ export function GetUninstallCaskWithZap() {
   return window['go']['main']['App']['GetUninstallCaskWithZap']();
 }
 
+export function ImportBrewfile(arg1, arg2) {
+  return window['go']['main']['App']['ImportBrewfile'](arg1, arg2);
+}
+
 export function InstallBrewPackage(arg1, arg2) {
   return window['go']['main']['App']['InstallBrewPackage'](arg1, arg2);
 }
