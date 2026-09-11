@@ -611,8 +611,8 @@ func (a *App) GetBrewUpdatablePackagesWithUpdate() [][]string {
 	return a.brewService.GetBrewUpdatablePackages()
 }
 
-func (a *App) InstallBrewPackage(packageName string) string {
-	return a.brewService.InstallBrewPackage(a.ctx, packageName)
+func (a *App) InstallBrewPackage(packageName string, isCask bool) string {
+	return a.brewService.InstallBrewPackage(a.ctx, packageName, isCask)
 }
 
 func (a *App) RemoveBrewPackage(packageName string, zap bool) string {
@@ -667,7 +667,7 @@ func (a *App) PreviewBrewCommand(action string, targets []string, isCask bool, z
 		if target == "" {
 			return ""
 		}
-		return brew.FormatCommand(brew.BuildInstallArgs(target))
+		return brew.FormatCommand(brew.BuildInstallArgs(target, isCask))
 	case "uninstall":
 		if target == "" {
 			return ""

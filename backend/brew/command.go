@@ -19,9 +19,15 @@ const (
 // confirmation dialogs use them, so what the user sees is what actually runs.
 
 // BuildInstallArgs builds the arguments for installing a package. Homebrew
-// resolves formula vs cask from the token itself, so no --formula/--cask.
-func BuildInstallArgs(name string) []string {
-	return []string{"install", name}
+// can usually resolve formula vs cask from the token itself, but when a
+// formula and a cask share the same name it defaults to the formula, so
+// --cask is passed whenever the caller knows the target is a cask.
+func BuildInstallArgs(name string, isCask bool) []string {
+	args := []string{"install"}
+	if isCask {
+		args = append(args, "--cask")
+	}
+	return append(args, name)
 }
 
 // BuildUninstallArgs builds the arguments for uninstalling a package. --zap is

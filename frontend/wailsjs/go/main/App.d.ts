@@ -118,7 +118,7 @@ export function GetTranslation(arg1:string,arg2:Record<string, string>):Promise<
 
 export function GetUninstallCaskWithZap():Promise<boolean>;
 
-export function InstallBrewPackage(arg1:string):Promise<string>;
+export function InstallBrewPackage(arg1:string,arg2:boolean):Promise<string>;
 
 export function OpenConfigFile():Promise<void>;
 

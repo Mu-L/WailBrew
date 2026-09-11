@@ -152,13 +152,15 @@ func (s *ActionsService) postInstallCask(packageName, progressEvent string) {
 	}
 }
 
-// InstallBrewPackage installs a package with live progress updates
-func (s *ActionsService) InstallBrewPackage(ctx context.Context, packageName string) string {
+// InstallBrewPackage installs a package with live progress updates. isCask
+// should be true when the caller knows the target is a cask, so --cask is
+// passed and Homebrew doesn't default to a same-named formula instead.
+func (s *ActionsService) InstallBrewPackage(ctx context.Context, packageName string, isCask bool) string {
 	// Emit initial progress
 	startMessage := s.getBackendMsg("backend.install.start", map[string]string{"name": packageName})
 	s.eventEmitter.Emit("packageInstallProgress", startMessage)
 
-	cmd := exec.Command(s.brewPath, BuildInstallArgs(packageName)...)
+	cmd := exec.Command(s.brewPath, BuildInstallArgs(packageName, isCask)...)
 	system.ApplyEnvironment(cmd, s.getBrewEnvFunc())
 
 	phase, stderrStr, err := runStreamingCommandLogged(s.logCallback, cmd,

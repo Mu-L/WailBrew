@@ -130,7 +130,10 @@ func TestBuildUntapAndTrustArgs(t *testing.T) {
 	if got, want := BuildTrustArgs("user/repo"), []string{"trust", "user/repo"}; !reflect.DeepEqual(got, want) {
 		t.Errorf("BuildTrustArgs() = %v, want %v", got, want)
 	}
-	if got, want := BuildInstallArgs("wget"), []string{"install", "wget"}; !reflect.DeepEqual(got, want) {
+	if got, want := BuildInstallArgs("wget", false), []string{"install", "wget"}; !reflect.DeepEqual(got, want) {
+		t.Errorf("BuildInstallArgs() = %v, want %v", got, want)
+	}
+	if got, want := BuildInstallArgs("1password", true), []string{"install", "--cask", "1password"}; !reflect.DeepEqual(got, want) {
 		t.Errorf("BuildInstallArgs() = %v, want %v", got, want)
 	}
 }

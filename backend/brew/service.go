@@ -46,7 +46,7 @@ type Service interface {
 	ExtractFailedPackagesFromError(stderrOutput string) []string
 
 	// Actions
-	InstallBrewPackage(ctx context.Context, packageName string) string
+	InstallBrewPackage(ctx context.Context, packageName string, isCask bool) string
 	RemoveBrewPackage(ctx context.Context, packageName string, zap bool) string
 	UpdateBrewPackage(ctx context.Context, packageName string) string
 	UpdateSelectedBrewPackages(ctx context.Context, packageNames []string) string
@@ -317,8 +317,8 @@ func (s *serviceImpl) ExtractFailedPackagesFromError(stderrOutput string) []stri
 }
 
 // Action methods
-func (s *serviceImpl) InstallBrewPackage(ctx context.Context, packageName string) string {
-	return s.actionsService.InstallBrewPackage(ctx, packageName)
+func (s *serviceImpl) InstallBrewPackage(ctx context.Context, packageName string, isCask bool) string {
+	return s.actionsService.InstallBrewPackage(ctx, packageName, isCask)
 }
 
 func (s *serviceImpl) RemoveBrewPackage(ctx context.Context, packageName string, zap bool) string {

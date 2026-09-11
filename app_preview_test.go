@@ -17,6 +17,7 @@ func TestPreviewBrewCommand(t *testing.T) {
 		expected     string
 	}{
 		{"install", "", "install", []string{"wget"}, false, false, "brew install wget"},
+		{"install cask", "", "install", []string{"1password"}, true, false, "brew install --cask 1password"},
 		{"uninstall formula", "", "uninstall", []string{"wget"}, false, false, "brew uninstall wget"},
 		{"uninstall cask with zap", "", "uninstall", []string{"firefox"}, true, true, "brew uninstall --zap --cask firefox"},
 		{"upgrade formula", "", "upgrade", []string{"wget"}, false, false, "brew upgrade wget"},

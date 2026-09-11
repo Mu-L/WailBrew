@@ -2246,7 +2246,7 @@ const WailBrewApp = () => {
 
         // Start the install process
         try {
-            await InstallBrewPackage(packageName);
+            await InstallBrewPackage(packageName, selectedPackage.isCask ?? false);
         } catch (error) {
             const errorMsg = `❌ Operation failed: ${String(error)}`;
             setInstallLogs((prev) => (prev ? `${prev}\n${errorMsg}` : errorMsg));
@@ -2450,6 +2450,7 @@ const WailBrewApp = () => {
                     desc,
                     size,
                     isInstalled: installedNames.has(name),
+                    isCask: true,
                 }));
                 setAllCasksAll(formatted);
                 setAllCasksLoaded(true);
@@ -3394,6 +3395,7 @@ const WailBrewApp = () => {
                         commandSpec={{
                             action: "install",
                             targets: selectedPackage ? [selectedPackage.name] : [],
+                            isCask: selectedPackage?.isCask ?? false,
                         }}
                     />
                     <ConfirmDialog
