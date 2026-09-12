@@ -103,7 +103,11 @@ func TestDeleteSnapshotRejectsPathTraversal(t *testing.T) {
 	if err := os.WriteFile(outsideFile, []byte("tap x/y\n"), 0644); err != nil {
 		t.Fatalf("failed to write fixture: %v", err)
 	}
-	defer os.Remove(outsideFile)
+	defer func() {
+		if err := os.Remove(outsideFile); err != nil {
+			t.Errorf("failed to remove fixture: %v", err)
+		}
+	}()
 
 	tests := []string{
 		"../outside.Brewfile",
